@@ -6,3 +6,4 @@
 /.mlterm/challenge
 /.mlterm/msg.log
 /.mlterm/*.snp
+!.gitkeep
