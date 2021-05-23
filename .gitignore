@@ -1,0 +1,8 @@
+/.vim/bak/
+/.vim/bin/
+/.vim/plugged/
+/.vim/swp/
+/.vim/undo/
+/.mlterm/challenge
+/.mlterm/msg.log
+/.mlterm/*.snp

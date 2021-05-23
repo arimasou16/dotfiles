@@ -1,0 +1,386 @@
+" General Settings
+set configversion 2.0
+set searchurls.google https://www.google.com/search?q=
+set searchurls.yahoo https://search.yahoo.com/search?p=
+set searchurls.twitter https://twitter.com/search?q=
+set searchurls.wikipedia https://en.wikipedia.org/wiki/Special:Search/
+set searchurls.youtube https://www.youtube.com/results?search_query=
+set searchurls.amazon https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=
+set searchurls.github https://github.com/search?utf8=✓&q=
+set searchurls.searx https://searx.me/?category_general=on&q=
+set searchurls.mdn https://developer.mozilla.org/ja/search?q=
+set searchurls.mora https://mora.jp/search/top?keyWord=
+set searchurls.bic https://www.biccamera.com/bc/category/?dispNo=&q=
+set searchurls.alc https://www.alc.co.jp/#?q=
+set searchurls.amazon https://www.amazon.co.jp/s?k=
+set searchurls.raku https://search.rakuten.co.jp/search/mall/%s/?f=1&grp=product
+set searchurls.dmm https://www.dmm.com/search/?redirect=1&enc=UTF-8&category=&searchstr=
+set searchurls.hmv https://www.hmv.co.jp/search/searchresults/?category=KEYWORD&keyword=
+set profiledir C:\Users\yoyuu\AppData\Roaming\Mozilla\Firefox\Profiles\i6ehmx3i.default-release
+set hintfiltermode vimperator-reflow
+set hintnames short
+set hintchars hjklasdfgyuiopqwertnmzxcvb
+set hintdelay 100
+set homepages ["yahoo.co.jp"]
+set allowautofocus false
+set followpagepatterns.next ^(次へ|進む|もっと見る|もっとみる|次のページ|続き|next|newer|more|(>|→|»|≫|>>)\b)
+set followpagepatterns.prev ^(前へ|戻る|前のページ|prev(ious)?|older|back|(<|←|«|≪|<<|«|<<)\b)
+js tri.browserBg.runtime.getPlatformInfo().then(os=>{const editorcmd = os.os=="linux" ? "kitty nvim" : "gvim -u NONE -c \":e ++enc=utf8\""; tri.config.set("editorcmd", editorcmd)})
+set newtab moz-extension://d530a585-8263-4c4e-987f-1dbcb8772db9/newtab.html
+colourscheme dark
+
+" Binds
+bind $ scrollto 100 x
+bind ,g js let uri = document.location.href.replace(/https?:\/\//,"git@").replace("/",":").replace(/$/,".git"); tri.native.run("cd ~/projects; git clone " + uri + "; cd \"$(basename \"" + uri + "\" .git)\"; st")
+bind . repeat
+bind : fillcmdline_notrail
+bind ;# hint -#
+bind ;; hint -; *
+bind ;A hint -A
+bind ;C composite hint_focus; !s xdotool key Menu
+bind ;I hint -I
+bind ;K hint -K
+bind ;M composite hint -Jpipe img src | tabopen images.google.com/searchbyimage?image_url=
+bind ;O hint -W fillcmdline_notrail open 
+bind ;P hint -P
+bind ;S hint -S
+bind ;T hint -W fillcmdline_notrail tabopen 
+bind ;W hint -W fillcmdline_notrail winopen 
+bind ;Y hint -cF img i => tri.excmds.yankimage(tri.urlutils.getAbsoluteURL(i.src))
+bind ;a hint -a
+bind ;b hint -b
+bind ;c hint -Jc [class*="expand"],[class="togg"],[class="comment_folder"]
+bind ;g# hint -q#
+bind ;g; hint -q;
+bind ;gA hint -qA
+bind ;gF hint -qb
+bind ;gI hint -qI
+bind ;gP hint -qP
+bind ;gS hint -qS
+bind ;ga hint -qa
+bind ;gb hint -qb
+bind ;gf hint -q
+bind ;gi hint -qi
+bind ;gk hint -qk
+bind ;gp hint -qp
+bind ;gr hint -qr
+bind ;gs hint -qs
+bind ;gv hint -qW mpvsafe
+bind ;gw hint -qw
+bind ;gy hint -qy
+bind ;h hint -h
+bind ;i hint -i
+bind ;k hint -k
+bind ;m composite hint -Jpipe img src | open images.google.com/searchbyimage?image_url=
+bind ;o hint
+bind ;p hint -p
+bind ;r hint -r
+bind ;s hint -s
+bind ;t hint -W tabopen
+bind ;v hint -W mpvsafe
+bind ;w hint -w
+bind ;y hint -y
+bind ;z hint -z
+bind << tabmove -1
+bind <A-m> mute toggle
+bind <A-p> pin
+bind <AC-Escape> mode ignore
+bind <AC-`> mode ignore
+bind <C-6> buffer #
+bind <C-[> composite mode normal ; hidecmdline
+bind <C-a> urlincrement 1
+bind <C-b> scrollpage -1
+bind <C-d> scrollpage 0.5
+bind <C-f> scrollpage 1
+bind <C-i> jumpnext
+bind <C-o> jumpprev
+bind <C-u> scrollpage -0.5
+bind <C-v> nmode ignore 1 mode normal
+bind <C-x> urlincrement -1
+bind <C-y> scrollline -10
+bind <Escape> composite mode normal ; hidecmdline
+bind <F1> help
+bind <S-Escape> mode ignore
+bind <S-Insert> mode ignore
+bind >> tabmove +1
+bind A bmark
+bind B fillcmdline taball
+bind D tabclose
+bind F hint -b
+bind G scrollto 100
+bind H back
+bind J tabprev
+bind K tabnext
+bind L forward
+bind M gobble 1 quickmark
+bind O current_url open
+bind P clipboard tabopen
+bind R reloadhard
+bind S fillcmdline tabopen search
+bind T current_url tabopen
+bind U undo window
+bind W current_url winopen
+bind ZZ qall
+bind [[ followpage prev
+bind [c urlincrement -1
+bind ]] followpage next
+bind ]c urlincrement 1
+bind ^ scrollto 0 x
+bind a current_url bmark
+bind b fillcmdline tab
+bind d composite tabprev; tabclose #
+bind f hint
+bind g! jumble
+bind g$ tablast
+bind g0 tabfirst
+bind g; changelistjump -1
+bind g? rot13
+bind gD composite tabduplicate
+bind gF hint -qb
+bind gH home true
+bind gT tabprev
+bind gU urlroot
+bind g^ tabfirst
+bind ga tabaudio
+bind gd tabdetach
+bind gf viewsource
+bind gg scrollto 0
+bind gh home
+bind gi focusinput -l
+bind gna tabopen https://www.amazon.co.jp/
+bind gnc tabopen https://console.aws.amazon.com/
+bind gnd tabopen http://www.dmm.com/
+bind gnf tabopen https://feedly.com/i/latest
+bind gng tabopen https://douga.geo-online.co.jp/
+bind gnh tabopen https://www.hmv.co.jp/
+bind gni tabopen https://www.instagram.com/
+bind gnl tabopen https://www.deepl.com/ja/translator
+bind gnn tabopen https://www.netflix.com/jp/
+bind gnp tabopen https://getpocket.com/a/
+bind gnr tabopen https://www.rakuten.co.jp/
+bind gns tabopen https://app.simplenote.com/
+bind gnt tabopen https://github.com/tridactyl/tridactyl/blob/master/src/lib/config.ts
+bind gnx tabopen https://app.plex.tv/desktop
+bind gny tabopen https://www.youtube.com/?gl=JP
+bind gnz tabopen https://us02web.zoom.us/signin
+bind goa open https://www.amazon.co.jp/
+bind goc open https://console.aws.amazon.com/
+bind god open http://www.dmm.com/
+bind gof open https://feedly.com/i/latest
+bind gog open https://douga.geo-online.co.jp/
+bind goh open https://www.hmv.co.jp/
+bind goi open https://www.instagram.com/
+bind gol open https://www.deepl.com/ja/translator
+bind gon open https://www.netflix.com/jp/
+bind gop open https://getpocket.com/a/
+bind gor open https://www.rakuten.co.jp/
+bind gos open https://app.simplenote.com/
+bind got open https://github.com/tridactyl/tridactyl/blob/master/src/lib/config.ts
+bind gox open https://app.plex.tv/desktop
+bind goy open https://www.youtube.com/?gl=JP
+bind goz open https://us02web.zoom.us/signin
+bind gr reader
+bind gt tabnext_gt
+bind gu urlparent
+bind gwa winopen https://www.amazon.co.jp/
+bind gwc winopen https://console.aws.amazon.com/
+bind gwd winopen http://www.dmm.com/
+bind gwf winopen https://feedly.com/i/latest
+bind gwg winopen https://douga.geo-online.co.jp/
+bind gwh winopen https://www.hmv.co.jp/
+bind gwi winopen https://www.instagram.com/
+bind gwl winopen https://www.deepl.com/ja/translator
+bind gwn winopen https://www.netflix.com/jp/
+bind gwp winopen https://getpocket.com/a/
+bind gwr winopen https://www.rakuten.co.jp/
+bind gws winopen https://app.simplenote.com/
+bind gwt winopen https://github.com/tridactyl/tridactyl/
+bind gwx winopen https://app.plex.tv/desktop
+bind gwy winopen https://www.youtube.com/?gl=JP
+bind gwz winopen https://us02web.zoom.us/signin
+bind gx$ tabclosealltoright
+bind gx0 tabclosealltoleft
+bind h scrollpx -50
+bind j scrollline 10
+bind k scrollline -10
+bind l scrollpx 50
+bind o fillcmdline open
+bind p clipboard open
+bind r reload
+bind s fillcmdline open search
+bind t fillcmdline tabopen
+bind u undo
+bind v hint -h
+bind w fillcmdline winopen
+bind yc clipboard yankcanon
+bind yg composite js "git clone " + document.location.href.replace(/https?:\/\//,"git@").replace("/",":").replace(/$/,".git") | clipboard yank
+bind ym clipboard yankmd
+bind yo clipboard yankorg
+bind yp composite js document.getElementById("clone-help-step-1").textContent.replace("git checkout -b", "git checkout -B").replace("git pull ", "git fetch ") + "git reset --hard " + document.getElementById("clone-help-step-1").textContent.split(" ")[3].replace("-","/") | yank
+bind ys clipboard yankshort
+bind yt clipboard yanktitle
+bind yy clipboard yank
+bind zI zoom 3
+bind zM zoom 0.5 true
+bind zO zoom 0.3
+bind zR zoom -0.5 true
+bind zi zoom 0.1 true
+bind zm zoom 0.5 true
+bind zo zoom -0.1 true
+bind zr zoom -0.5 true
+bind zz zoom 1
+bind <AS-ArrowUp><AS-ArrowUp><AS-ArrowDown><AS-ArrowDown><AS-ArrowLeft><AS-ArrowRight><AS-ArrowLeft><AS-ArrowRight>ba open https://www.youtube.com/watch?v=M3iOROuTuMA
+bind --mode=visual 0 js document.getSelection().modify("extend","backward","lineboundary")
+bind --mode=visual t composite js document.getSelection().toString() | fillcmdline tabopen
+bind --mode=visual <Escape> composite js document.getSelection().empty(); mode normal; hidecmdline
+bind --mode=visual <C-[> composite js document.getSelection().empty(); mode normal ; hidecmdline
+bind --mode=visual y composite js document.getSelection().toString() | clipboard yank
+bind --mode=visual s composite js document.getSelection().toString() | fillcmdline open search
+bind --mode=visual S composite js document.getSelection().toString() | fillcmdline tabopen search
+bind --mode=visual l js document.getSelection().modify("extend","forward","character")
+bind --mode=visual h js document.getSelection().modify("extend","backward","character")
+bind --mode=visual e js document.getSelection().modify("extend","forward","word")
+bind --mode=visual w js document.getSelection().modify("extend","forward","word"); document.getSelection().modify("extend","forward","word"); document.getSelection().modify("extend","backward","word"); document.getSelection().modify("extend","forward","character")
+bind --mode=visual b js document.getSelection().modify("extend","backward","character"); document.getSelection().modify("extend","backward","word"); document.getSelection().modify("extend","forward","character")
+bind --mode=visual j js document.getSelection().modify("extend","forward","line")
+bind --mode=visual k js document.getSelection().modify("extend","backward","line")
+bind --mode=visual $ js document.getSelection().modify("extend","forward","lineboundary")
+bind --mode=visual = js let n = document.getSelection().anchorNode.parentNode; let s = window.getSelection(); let r = document.createRange(); s.removeAllRanges(); r.selectNodeContents(n); s.addRange(r)
+bind --mode=visual o js tri.visual.reverseSelection(document.getSelection())
+bind --mode=visual 🕷🕷INHERITS🕷🕷 nmaps
+bindurl wikiwand.com yy composite js document.location.href.replace("wikiwand.com/en","wikipedia.org/wiki") | clipboard yank
+bindurl reddit.com gu urlparent 4
+bindurl www.google.com f hint -Jc #search div:not(.action-menu) > a
+bindurl www.google.com F hint -Jbc #search div:not(.action-menu) > a
+bindurl ^https://web.whatsapp.com f hint -c [tabindex]:not(.two)>div,a
+bindurl ^https://web.whatsapp.com F hint -bc [tabindex]:not(.two)>div,a
+unbind --mode=ex <C-a>
+unbind --mode=ex <C-c>
+bind --mode=ex <Enter> ex.accept_line
+bind --mode=ex <C-Enter> ex.execute_ex_on_completion
+bind --mode=ex <C-j> ex.accept_line
+bind --mode=ex <C-m> ex.accept_line
+bind --mode=ex <Escape> ex.hide_and_clear
+bind --mode=ex <C-[> ex.hide_and_clear
+bind --mode=ex <ArrowUp> ex.prev_history
+bind --mode=ex <ArrowDown> ex.next_history
+bind --mode=ex <S-Del> ex.execute_ex_on_completion_args tabclose
+bind --mode=ex <A-b> text.backward_word
+bind --mode=ex <A-f> text.forward_word
+bind --mode=ex <C-e> text.end_of_line
+bind --mode=ex <A-d> text.kill_word
+bind --mode=ex <S-Backspace> text.backward_kill_word
+bind --mode=ex <C-u> text.backward_kill_line
+bind --mode=ex <C-k> text.kill_line
+bind --mode=ex <C-f> ex.complete
+bind --mode=ex <Tab> ex.next_completion
+bind --mode=ex <S-Tab> ex.prev_completion
+bind --mode=ex <Space> ex.insert_space_or_completion
+bind --mode=ex <C-o>yy ex.execute_ex_on_completion_args clipboard yank
+
+" Subconfig Settings
+seturl www.google.com followpagepatterns.next Next
+
+" Aliases
+alias hint_focus hint -;
+alias discardall jsb browser.tabs.query({}).then(ts => browser.tabs.discard(ts.map(t=>t.id)))
+alias fixamo_quiet jsb tri.excmds.setpref("privacy.resistFingerprinting.block_mozAddonManager", "true").then(tri.excmds.setpref("extensions.webextensions.restrictedDomains", '""'))
+alias fixamo js tri.excmds.setpref("privacy.resistFingerprinting.block_mozAddonManager", "true").then(tri.excmds.setpref("extensions.webextensions.restrictedDomains", '""').then(tri.excmds.fillcmdline_tmp(3000, "Permissions added to user.js. Please restart Firefox to make them take affect.")))
+alias translate js let googleTranslateCallback = document.createElement('script'); googleTranslateCallback.innerHTML = "function googleTranslateElementInit(){ new google.translate.TranslateElement(); }"; document.body.insertBefore(googleTranslateCallback, document.body.firstChild); let googleTranslateScript = document.createElement('script'); googleTranslateScript.charset="UTF-8"; googleTranslateScript.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit&tl=&sl=&hl="; document.body.insertBefore(googleTranslateScript, document.body.firstChild);
+command alias command
+alias au autocmd
+alias aucon autocontain
+alias audel autocmddelete
+alias audelete autocmddelete
+alias blacklistremove autocmddelete DocStart
+alias b tab
+alias clsh clearsearchhighlight
+alias nohlsearch clearsearchhighlight
+alias noh clearsearchhighlight
+alias o open
+alias w winopen
+alias t tabopen
+alias tabnew tabopen
+alias tabm tabmove
+alias tabo tabonly
+alias tn tabnext_gt
+alias bn tabnext_gt
+alias tnext tabnext_gt
+alias bnext tabnext_gt
+alias tp tabprev
+alias tN tabprev
+alias bp tabprev
+alias bN tabprev
+alias tprev tabprev
+alias bprev tabprev
+alias tabfirst tab 1
+alias tablast tab 0
+alias bfirst tabfirst
+alias blast tablast
+alias tfirst tabfirst
+alias tlast tablast
+alias buffer tab
+alias bufferall taball
+alias bd tabclose
+alias bdelete tabclose
+alias quit tabclose
+alias q tabclose
+alias qa qall
+alias sanitize sanitise
+alias saveas! saveas --cleanup --overwrite
+alias tutorial tutor
+alias h help
+alias unmute mute unmute
+alias authors credits
+alias openwith hint -W
+alias ! exclaim
+alias !s exclaim_quiet
+alias containerremove containerdelete
+alias colours colourscheme
+alias colorscheme colourscheme
+alias colors colourscheme
+alias man help
+alias !js fillcmdline_tmp 3000 !js is deprecated. Please use js instead
+alias !jsb fillcmdline_tmp 3000 !jsb is deprecated. Please use jsb instead
+alias get_current_url js document.location.href
+alias current_url composite get_current_url | fillcmdline_notrail 
+alias stop js window.stop()
+alias zo zoom
+alias installnative nativeinstall
+alias nativeupdate updatenative
+alias mkt mktridactylrc
+alias mkt! mktridactylrc -f
+alias mktridactylrc! mktridactylrc -f
+alias mpvsafe js -p tri.excmds.shellescape(JS_ARG).then(url => tri.excmds.exclaim_quiet('mpv ' + url))
+alias exto extoptions
+alias extpreferences extoptions
+alias extp extpreferences
+alias prefset setpref
+alias prefremove removepref
+alias tabclosealltoright tabcloseallto right
+alias tabclosealltoleft tabcloseallto left
+alias reibadailty jumble
+alias so source
+
+" Autocmds
+autocmd DocStart ^http(s?)://www.reddit.com js tri.excmds.urlmodify("-t", "www", "old")
+autocmd DocStart ^http(s?)://www.amazon.co.uk js tri.excmds.urlmodify("-t", "www", "smile")
+autocmd DocStart ^http(s?)://app.eigosapuri.jp mode ignore
+autocmd DocStart ^http(s?)://blog.feedly.com mode ignore
+autocmd DocStart ^http(s?)://feedly.com mode ignore
+autocmd DocStart ^http(s?)://jamstash.com mode ignore
+autocmd DocStart ^http(s?)://mail.google.com mode ignore
+autocmd DocStart ^http(s?)://manabi-gakushu.benesse.ne.jp mode ignore
+autocmd DocStart ^http(s?)://oyayubi-typing.solaniwa.net mode ignore
+autocmd DocStart ^http(s?)://tweetdeck.twitter.com mode ignore
+autocmd DocStart ^http(s?)://unityroom.com mode ignore
+autocmd DocStart ^http(s?)://www.e-typing.ne.jp mode ignore
+
+autocmd DocLoad ^https://github.com/tridactyl/tridactyl/issues/new$ issue
+autocmd TriStart .* source_quiet
+
+set autocontainmode strict
+set auconcreatecontainer false
+
+" For syntax highlighting see https://github.com/tridactyl/vim-tridactyl
+" vim: set filetype=tridactyl

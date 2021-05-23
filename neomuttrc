@@ -1,0 +1,44 @@
+########################
+# メール送信・受信設定 #
+########################
+# realname,from,smtp_url,imap_user,imap_pass,smtp_passは暗号化
+source "gpg -d ~/.config/neomutt/userinfo.gpg |" # 暗号化したユーザー情報を読み込み
+set hostname  = "gmail.com"                      # ホスト名
+set folder    = "imaps://imap.gmail.com:993"     # 受信メールの読み込み先(993番ポート=SSL対応)
+######################
+#   セキュリティ設定 #
+######################
+set ssl_starttls      = yes # 受送信メールサーバまでの通信を暗号化
+set ssl_force_tls     = yes # SSLを次世代規格のTLSに強制的に変更
+########################
+#   メーラー基本設定   #
+########################
+set sidebar_visible  = yes                       # サイドバーの表示
+set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S" # サイドバーの書式
+set mail_check_stats                             # 定期的にメールの状態をチェック
+set sort_aux         = reverse-date              # 日付の降順でメール一覧を表示
+set use_from         = yes                       # メールのFromヘッダを自動生成ON
+set editor           = "nvim"                    # メールを書く時のエディタ
+                                                 # 環境変数EDITORに従う場合、`echo \$EDITOR`と記載
+set charset          = "utf-8"                   # Terminal(およびメール送信時)で使用する文字コード
+set assumed_charset  = "utf-8:iso-2022-jp:euc-jp:shift_jis" # 文字コード指定がない場合のため、優先順位を設定
+set mbox_type        = "maildir"                 # mbox=複数のメッセージが連結した形式で保存
+                                                 # maildir=mail1通がファイル1個
+set spoolfile        = "+INBOX"                  # フィルタされていないメールの受信先
+set imap_check_subscribed                        # 全てのサブフォルダを列挙
+set certificate_file = "~/.mutt/certificates"    # CAの証明書の格納先(接続先の認証ファイル)
+set mailcap_path     = "~/.mutt/mailcap"         # mailcapには、w3mを使ってHTMLメールを読む設定を記載
+auto_view text/html
+set new_mail_command="notify-send --icon='/usr/share/icons/hicolor/48x48/apps/neomutt.png' 'New Email' '%n new messages, %u unread.' &"
+# インデックスフォーマット デフォルト"%4C %Z %{%b %d} %-15.15L (%?l?%4l&%4c?) %s"
+set index_format="%4C %Z %<[y?%<[d?%[%H:%M           ]&%[%m/%d (%a) %H:%M]>&%[%Y/%m/%d %H:%M]> %-15.15L (%?l?%4l&%4c?) %s"
+##############################################################
+# キャッシュ設定(キャッシュ先ディレクトリを事前に作成する事) #
+##############################################################
+set header_cache     = "~/.mutt/cache/headers" # headerキャッシュのPATHを指定
+set message_cachedir = "~/.mutt/cache/bodies"  # IMAP経由で受信したメッセージのキャッシュPATHを指定
+##############################################################
+# URL を表示 & ウェブブラウザの起動                          #
+##############################################################
+macro index,pager \cb "<pipe-message> urlscan<Enter>" "call urlscan to extract URLs out of a message"
+#macro index,pager \cb "<enter-command> unset pipe_decode<enter><pipe-message>extract_url | urlview<enter>" "get URLs"

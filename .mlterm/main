@@ -1,0 +1,32 @@
+# ログの行数 
+logsize = 1024
+# フォントサイズ
+fontsize = 14
+# 変更可能なフォントサイズの範囲
+font_size_range = 6-30
+# larger,smaller ボタンでのフォントサイズの変化量
+step_in_changing_font_size = 1
+# 可変長コラム幅を使用する
+use_variable_column_width = false
+# アンチエイリアスフォントを使用する
+use_anti_alias = true
+# アンチエイリアス(Xft)時、JISX0208 の Unicode 変換に CP932 の変換テーブルを使う
+use_cp932_ucs_for_xft = true
+# UNICODE を適当な文字集合にmapして、UNICODE フォントを使わずに表示する
+not_use_unicode_font = true
+# スクロールバーをつける
+use_scrollbar = false
+# 端末画面の背景色
+bg_color = #242424
+# 端末画面の前景色
+fg_color = #f6f3e8
+# 字間の広さ
+letter_space = 1
+# 行間の広さ
+line_space = 3
+# クリップボードを使う
+use_clipboard = true
+# UNICODEのEastAsianWidth.txtのAプロパティのカラム数
+col_size_of_width_a = 2
+# 全角文字幅の範囲
+unicode_full_width_areas = U+2600-26FF,U+1F000-1FFFF

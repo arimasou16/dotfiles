@@ -1,0 +1,52 @@
+!! ウィンドウサイズ
+URxvt.geometry:           1000x1800
+!! スクロールバー
+URxvt.scrollBar:          false
+!! デザイン
+URxvt.scrollBar_right:    true
+URxvt.scrollBar_floating: true
+URxvt.scrollstyle:        rxvt
+!! カーソル形状と点滅
+URxvt.cursorBlink:        true
+!! マウスポインター消去
+URxvt.pointerBlank:       false
+!! ヴィジュアルベル
+URxvt.visualBell:         true
+!! バッファ行数
+URxvt.saveLines:          3000
+!! アウトオブフォーカス時に画面を暗く
+URxvt.fading:             40
+!! フォント
+URxvt.font:               xft: HackGen Console-12
+!! 文字間
+URxvt.letterSpace:        -1
+!! 行間
+URxvt.lineSpace:          2
+!! color scheme and opacity - gruvbox-dark https://github.com/morhetz/gruvbox
+! terminal color scheme
+! cf. https://github.com/xero/sourcerer/blob/master/sourcerer.Xresources
+URxvt.foreground:         #c2c2b0
+URxvt.background:         #222222
+URxvt.cursorColor:        #c2c2b0
+URxvt.color0:             #111111
+URxvt.color8:             #181818
+URxvt.color1:             #aa4450
+URxvt.color9:             #ff6a6a
+URxvt.color2:             #719611
+URxvt.color10:            #b1d631
+URxvt.color3:             #ff9800
+URxvt.color11:            #87875f
+URxvt.color4:             #6688aa
+URxvt.color12:            #90b0d1
+URxvt.color5:             #8f6f8f
+URxvt.color13:            #8181a6
+URxvt.color6:             #528b8b
+URxvt.color14:            #87ceeb
+URxvt.color7:             #d3d3d3
+URxvt.color15:            #c1cdc1
+URxvt.colorIT:            #719611
+URxvt.colorBD:            #d3d3d3
+URxvt.colorUL:            #528b8b
+!! Perl拡張抑止
+URxvt.perl-ext:
+URxvt.perl-ext-common:
