@@ -71,6 +71,9 @@ set wrap
 set tw=0
 " Windows環境においてもフォルダ区切りをバックスラッシュでなくスラッシュにする
 "set shellslash
+if has('win32') || has('win64')
+  set shell=powershell.exe
+endif
 "検索時に大文字小文字の区別をしない
 set ignorecase
 "大文字で検索時には大文字小文字の区別をする
@@ -112,6 +115,15 @@ function! s:ChangeCurrentDirectory()
     execute printf('lcd `=%s`', string(fnamemodify(l:dir, ":p")))
   endif
 endfunction
+function! s:setcwd()
+  let cph = expand('%:p:h', 1)
+  if cph =~ '^.\+://' | retu | en
+  for mkr in ['.git/', '.hg/', '.svn/', '.bzr/', '_darcs/', '.vimprojects']
+    let wd = call('find'.(mkr =~ '/$' ? 'dir' : 'file'), [mkr, cph.';'])
+    if wd != '' | let &acd = 0 | brea | en
+  endfo
+  exe 'lc!' fnameescape(wd == '' ? cph : substitute(wd, mkr.'$', '.', ''))
+endfunction
 " ファイルタイプが未設定ならデフォルトのファイルタイプを設定する
 function! s:NoneFileTypeSetMarkdown()
   if len(&filetype) == 0
@@ -130,7 +142,8 @@ augroup my_vimrc
   " グループ内の autocmd をリセットする
   autocmd!
   " 開いたファイルのカレントディレクトリに移動
-  autocmd BufEnter * call s:ChangeCurrentDirectory()
+  "autocmd BufEnter * call s:ChangeCurrentDirectory()
+  autocmd BufEnter * call s:setcwd()
   " 新しいバッファの編集を始めたときのファイルタイプを設定する
   autocmd BufEnter * call s:NoneFileTypeSetMarkdown()
   " 自動的にquickfix-windowを開く
@@ -235,6 +248,10 @@ endif
 " ctrlp
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlPMixed'
+let g:ctrlp_working_path_mode = 'ra'
+" 終了時にキャッシュファイルを削除しない
+let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_use_caching = 1
 let g:ctrlp_match_func = {'match': 'ctrlp_matchfuzzy#matcher'}
 if has('win32') || has('win64')
   set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
@@ -250,17 +267,16 @@ let g:ctrlp_custom_ignore = {
 let g:ctrlp_lazy_update = 200
 nmap <C-p> [ctrlp]
 nnoremap <silent> [ctrlp]  :<C-u>CtrlP<CR>
-nnoremap <silent> [ctrlp]b :<C-u>CtrlPBuffer<CR>   " バッファセレクタとして使えます。
-nnoremap <silent> [ctrlp]r :<C-u>CtrlPMRUFiles<CR> " これまで開いたファイル履歴から絞り込みます。
-nnoremap <silent> [ctrlp]m :<C-u>CtrlPMixed<CR>    " ファイル、バッファ、履歴を一度に絞り込みます。ぶっちゃけこれで大体足りるといえば足りる。
-nnoremap <silent> [ctrlp]q :<C-u>CtrlPQuickfix<CR> " vimのquickfixと連携出来ます。:grepとかと組み合わせて使うのがメインかも。
-nnoremap <silent> [ctrlp]t :<C-u>CtrlPTag<CR>      " タグ一覧を表示、絞り込みできます。
-nnoremap <silent> [ctrlp]l :<C-u>CtrlPLine<CR>     " 現在のファイル内の各行を対象に絞り込みます。unite lineと大体一緒です。簡易ファイル内grep的に使えます。
-nnoremap <silent> [ctrlp]d :<C-u>CtrlPDir<CR>      " ディレクトリを検索してカレントディレクトリを切り替えたりできます。
+nnoremap <silent> <c-p>m :<C-u>CtrlPMixed<CR>           " ファイル、バッファ、履歴を一度に絞り込みます。ぶっちゃけこれで大体足りるといえば足りる。
+nnoremap <silent> <c-p>b :<C-u>CtrlPBookmarkDir<CR>     " ブックマークしたディレクトリを絞り込む
+nnoremap <silent> <c-p>a :<C-u>CtrlPBookmarkDirAdd!<CR> " ディレクトリをブックマークする
+nnoremap <silent> <c-p>q :<C-u>CtrlPQuickfix<CR>        " vimのquickfixと連携出来ます。:grepとかと組み合わせて使うのがメインかも。
+nnoremap <silent> <c-p>t :<C-u>CtrlPTag<CR>             " タグ一覧を表示、絞り込みできます。
+nnoremap <silent> <c-p>l :<C-u>:CtrlPChange<CR>         " 現在のファイル内の各行を対象に絞り込みます。
+nnoremap <silent> <c-p>d :<C-u>CtrlPDir<CR>             " ディレクトリを検索してカレントディレクトリを切り替えたりできます。
 if executable('rg')
   set grepprg=rg\ --vimgrep\ --no-heading
   let g:ctrlp_user_command = '[ $PWD == $HOME ] && echo "In HOME Directory" || rg %s --files --color=never --glob ""'
-  let g:ctrlp_use_caching = 0
 endif
 " starting
 if has('vim_starting')
