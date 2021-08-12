@@ -1,0 +1,78 @@
+{
+  "settingsVersion": "1.66",
+  "exclusionRules": [
+    {
+      "pattern": "https?://mail.google.com/*",
+      "passKeys": ""
+    },
+    {
+      "pattern": "https?://tweetdeck.twitter.com/",
+      "passKeys": ""
+    },
+    {
+      "pattern": "https?://blog.feedly.com/*",
+      "passKeys": ""
+    },
+    {
+      "pattern": "https?://auctions.yahoo.co.jp/*",
+      "passKeys": ""
+    },
+    {
+      "pattern": "https?://oyayubi-typing.solaniwa.net/*",
+      "passKeys": ""
+    },
+    {
+      "pattern": "https?://app.eigosapuri.jp/*",
+      "passKeys": ""
+    },
+    {
+      "pattern": "https?://tweetdeck.twitter.com/*",
+      "passKeys": ""
+    },
+    {
+      "pattern": "https?://object-storage.tyo1.conoha.io/*",
+      "passKeys": ""
+    },
+    {
+      "pattern": "https?://unityroom.com/*",
+      "passKeys": ""
+    },
+    {
+      "pattern": "https?://feedly.com/*",
+      "passKeys": ""
+    },
+    {
+      "pattern": "https?://hibikipsc.app.push7.jp/*",
+      "passKeys": ""
+    },
+    {
+      "pattern": "https?://lifestyleimage.app.push7.jp/*",
+      "passKeys": ""
+    },
+    {
+      "pattern": "https?://jamstash.com/*",
+      "passKeys": "*"
+    },
+    {
+      "pattern": "https?://jamstash.com/*",
+      "passKeys": ""
+    }
+  ],
+  "filterLinkHints": false,
+  "waitForEnterForFilteredHints": true,
+  "hideHud": false,
+  "keyMappings": "# Insert your preferred key mappings here.\nunmap X\nunmap d\nunmap gs\nunmap <c-j>\n\nmap 0 scrollToLeft\nmap $ scrollToRight\nmap g^ firstTab\n\nmap u restoreTab\nmap <c-d> scrollPageDown\nmap <c-u> scrollPageUp\nmap <c-f> scrollFullPageDown\nmap <c-b> scrollFullPageUp\nmap <c-]> passNextKey normal\nmap gf toggleViewSource\nmap goa createTab https://www.amazon.co.jp/\nmap goc createTab https://console.aws.amazon.com/\nmap god createTab http://www.dmm.com/\nmap gof createTab https://feedly.com/i/latest\nmap gog createTab https://douga.geo-online.co.jp/\nmap goh createTab https://www.hmv.co.jp/\nmap goi createTab https://www.instagram.com/\nmap gon createTab https://www.netflix.com/jp/Login\nmap gop createTab https://getpocket.com/a/\nmap gos createTab https://app.simplenote.com/\nmap got createTab https://tweetdeck.twitter.com/\nmap gox createTab https://app.plex.tv/desktop\nmap goy createTab https://www.youtube.com/?gl=JP\nmap goz createTab https://us02web.zoom.us/signin\nmap yy copyCurrentUrl\nmap si LinkHints.activateModeToOpenInNewForegroundTab\nmap d LinkHints.activateModeToDownloadLink\nmap lw LinkHints.activateModeToOpenIncognito\nmap cl closeTabsOnLeft\nmap cr closeTabsOnRight\nmap co closeOtherTabs\nmap : <s-f2>\n\n#map aa js alert(\"Hello world!\");",
+  "linkHintCharacters": "abcdefghijklmnopqrstuvwxyz",
+  "linkHintNumbers": "0123456789",
+  "newTabUrl": "about:newtab",
+  "nextPatterns": "next,more,>,→,»,≫,>>,次へ,進む,もっと見る,もっとみる,次のページ,続き",
+  "previousPatterns": "prev,previous,back,<,←,«,≪,<<,前へ,戻る,前のページ",
+  "regexFindMode": false,
+  "ignoreKeyboardLayout": false,
+  "scrollStepSize": 60,
+  "smoothScroll": true,
+  "grabBackFocus": false,
+  "searchEngines": "w: https://www.wikipedia.org/w/index.php?title=Special:Search&search=%s Wikipedia\n\n# More examples.\n#\n# (Vimium supports search completion Wikipedia, as\n# above, and for these.)\n#\na: https://www.amazon.co.jp/gp/search?field-keywords=%s Amazon.co.jp\nal: http://eow.alc.co.jp/%s/ alc\nb: http://www.biccamera.com/bc/category/?q=%s BicCamera\nd: http://www.dmm.com/search/=/searchstr=%s DMM\ng: https://www.google.com/search?q=%s Google\ngm: https://www.google.com/maps?q=%s Google maps\nh: http://www.hmv.co.jp/search/index.asp?keyword=%s HMV\nk: http://search.kakaku.com/ksearch/search.aspx?query=%s kakaku\nm: http://mora.jp/search/top?keyWord=%s mora\ny: https://www.youtube.com/results?search_query=%s Youtube\nge: https://translate.google.com/#en/ja/%s Translate English to Japanese\ngj: https://translate.google.com/#ja/en/%s Translate Japanese to English\n#gt https://translate.google.com/?q=%s Google Translate \nsite: javascript:location='http://www.google.com/search?num=100&q=site:'%20+%20escape(location.hostname)%20+%20'%20%S'%20;%20void%200 site",
+  "searchUrl": "https://www.google.com/search?q=",
+  "userDefinedLinkHintCss": "div > .vimiumHintMarker {\n/* linkhint boxes */\nbackground: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFF785),\n  color-stop(100%,#FFC542));\n  border: 1px solid #E3BE23;\n  ime-mode: inactive;\n}\n\ndiv > .vimiumHintMarker span {\n/* linkhint text */\ncolor: black;\nfont-weight: bold;\nfont-size: 12px;\n}\n\ndiv > .vimiumHintMarker > .matchingCharacter {\n}\n\n#urlbar {\n  ime-mode: inactive;\n}"
+}
