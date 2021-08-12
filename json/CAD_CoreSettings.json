@@ -1,0 +1,119 @@
+{
+  "settings": [
+    {
+      "name": "activeMode",
+      "value": true
+    },
+    {
+      "name": "delayBeforeClean",
+      "value": "1440"
+    },
+    {
+      "name": "statLogging",
+      "value": true
+    },
+    {
+      "name": "showNumOfCookiesInIcon",
+      "value": true
+    },
+    {
+      "name": "showNotificationAfterCleanup",
+      "value": true
+    },
+    {
+      "name": "cleanCookiesFromOpenTabsOnStartup",
+      "value": false
+    },
+    {
+      "name": "contextualIdentities",
+      "value": false
+    },
+    {
+      "id": "DEPRECATED - use localStorageCleanup",
+      "name": "localstorageCleanup",
+      "value": false
+    },
+    {
+      "name": "notificationOnScreen",
+      "value": 3
+    },
+    {
+      "name": "domainChangeCleanup",
+      "value": false
+    },
+    {
+      "id": "DEPRECATED - use default expressions",
+      "name": "greyCleanLocalstorage",
+      "value": false
+    },
+    {
+      "id": "DEPRECATED - use default expressions",
+      "name": "whiteCleanLocalstorage",
+      "value": false
+    },
+    {
+      "name": "enableNewVersionPopup",
+      "value": false
+    },
+    {
+      "name": "debugMode",
+      "value": false
+    },
+    {
+      "name": "enableGreyListCleanup",
+      "value": true
+    },
+    {
+      "name": "keepDefaultIcon",
+      "value": false
+    },
+    {
+      "name": "sizePopup",
+      "value": 16
+    },
+    {
+      "name": "sizeSetting",
+      "value": 16
+    },
+    {
+      "name": "contextMenus",
+      "value": true
+    },
+    {
+      "name": "discardedCleanup",
+      "value": false
+    },
+    {
+      "name": "cacheCleanup",
+      "value": false
+    },
+    {
+      "name": "cleanExpiredCookies",
+      "value": false
+    },
+    {
+      "name": "indexedDBCleanup",
+      "value": false
+    },
+    {
+      "name": "localStorageCleanup",
+      "value": false
+    },
+    {
+      "name": "manualNotifications",
+      "value": true
+    },
+    {
+      "name": "pluginDataCleanup",
+      "value": false
+    },
+    {
+      "name": "serviceWorkersCleanup",
+      "value": false
+    },
+    {
+      "name": "contextualIdentitiesAutoRemove",
+      "value": true
+    }
+  ]
+}
