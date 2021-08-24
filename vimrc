@@ -71,9 +71,6 @@ set wrap
 set tw=0
 " Windows環境においてもフォルダ区切りをバックスラッシュでなくスラッシュにする
 "set shellslash
-if has('win32') || has('win64')
-  set shell=powershell.exe
-endif
 "検索時に大文字小文字の区別をしない
 set ignorecase
 "大文字で検索時には大文字小文字の区別をする
