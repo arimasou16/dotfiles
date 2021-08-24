@@ -308,6 +308,10 @@ elseif executable('fcitx')
   let g:eskk#directory = "~/.config/fcitx/skk"
   let g:eskk#dictionary = { 'path': "~/.config/fcitx/skk/user.dict", 'sorted': 0, 'encoding': 'utf-8', }
   let g:eskk#large_dictionary = { 'path': "/usr/share/skk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp', }
+elseif executable('fcitx5')
+  let g:eskk#directory = "~/.config/fcitx5/skk"
+  let g:eskk#dictionary = { 'path': "~/.config/fcitx5/skk/user.dict", 'sorted': 0, 'encoding': 'utf-8', }
+  let g:eskk#large_dictionary = { 'path': "/usr/share/skk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp', }
 endif
 " Use yaskkserv
 let g:eskk#server = {
