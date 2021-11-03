@@ -31,7 +31,8 @@ augroup my_gvimrc
     set rop=type:directx,renmode:5
     autocmd GUIEnter * simalt ~x "※Windows設定
   elseif has('nvim')
-    execute "GuiFont! Illusion N:h14"
+    "execute "GuiFont! Illusion N:h14"
+    execute "GuiFont! SauceCodePro Nerd Font Mono:h14"
     "highlight Normal guibg=none
     "highlight NonText guibg=none
   endif
