@@ -210,7 +210,6 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'vim-scripts/BufOnly.vim'
 Plug 'vim-scripts/copypath.vim'
-"Plug 'vim-scripts/FavEx'
 Plug 'fuenor/qfixgrep'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'mrtazz/simplenote.vim'
@@ -311,10 +310,10 @@ elseif executable('fcitx5')
   let g:eskk#large_dictionary = { 'path': "/usr/share/skk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp', }
 endif
 " Use yaskkserv
-let g:eskk#server = {
-\  'host': 'localhost',
-\  'port': 1178,
-\}
+"let g:eskk#server = {
+"\  'host': 'localhost',
+"\  'port': 1178,
+"\}
 set iminsert=0
 set imsearch=0
 set imdisable
@@ -377,8 +376,8 @@ nnoremap <silent> <Leader>mn  :MemoNew<CR>
 nnoremap <silent> <Leader>ml  :MemoList<CR>
 nnoremap <silent> <Leader>mg  :MemoGrep<CR>
 let g:memolist_memo_suffix = "md"
-if isdirectory('E:\\MyDocument\\hugo-site\\content\\post')
-  let g:memolist_path = "E:\\MyDocument\\hugo-site\\content\\post"
+if isdirectory('E:\\Nextcloud\\hugo-site\\content\\post')
+  let g:memolist_path = "E:\\Nextcloud\\hugo-site\\content\\post"
 elseif isdirectory(expand('$HOME/Nextcloud/hugo-site/content/post'))
   let g:memolist_path = "~/Nextcloud/hugo-site/content/post"
 endif
@@ -408,7 +407,7 @@ nnoremap <silent> <LocalLeader>to :<C-u>Todo<CR>
 nnoremap <silent> <LocalLeader>do :<C-u>Done<CR>
 " function
 if has('win32') || has('win64')
-  let g:hugo_directory = 'E:\MyDocument\hugo-site'
+  let g:hugo_directory = 'E:\Nextcloud\hugo-site'
 else
   let g:hugo_directory = '~/Nextcloud/hugo-site'
 endif

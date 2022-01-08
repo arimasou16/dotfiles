@@ -26,7 +26,7 @@ set allowautofocus false
 set followpagepatterns.next ^(次へ|進む|もっと見る|もっとみる|次のページ|続き|next|newer|more|(>|→|»|≫|>>)\b)
 set followpagepatterns.prev ^(前へ|戻る|前のページ|prev(ious)?|older|back|(<|←|«|≪|<<|«|<<)\b)
 js tri.browserBg.runtime.getPlatformInfo().then(os=>{const editorcmd = os.os=="linux" ? "kitty nvim" : "gvim -u NONE -c \":e ++enc=utf8\""; tri.config.set("editorcmd", editorcmd)})
-set newtab moz-extension://d530a585-8263-4c4e-987f-1dbcb8772db9/newtab.html
+set newtab moz-extension://44665207-18d1-4b9d-8093-aa575fe70c0d/newtab.html
 colourscheme dark
 
 " Binds
