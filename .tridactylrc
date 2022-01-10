@@ -5,7 +5,7 @@ set searchurls.yahoo https://search.yahoo.com/search?p=
 set searchurls.twitter https://twitter.com/search?q=
 set searchurls.wikipedia https://en.wikipedia.org/wiki/Special:Search/
 set searchurls.youtube https://www.youtube.com/results?search_query=
-set searchurls.amazon https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=
+set searchurls.amazon https://www.amazon.co.jp/s?k=
 set searchurls.github https://github.com/search?utf8=✓&q=
 set searchurls.searx https://searx.me/?category_general=on&q=
 set searchurls.mdn https://developer.mozilla.org/ja/search?q=
@@ -28,6 +28,9 @@ set followpagepatterns.prev ^(前へ|戻る|前のページ|prev(ious)?|older|ba
 js tri.browserBg.runtime.getPlatformInfo().then(os=>{const editorcmd = os.os=="linux" ? "kitty nvim" : "gvim -u NONE -c \":e ++enc=utf8\""; tri.config.set("editorcmd", editorcmd)})
 set newtab moz-extension://44665207-18d1-4b9d-8093-aa575fe70c0d/newtab.html
 colourscheme dark
+set autocontainmode strict
+set auconcreatecontainer false
+set update.lastchecktime 1641794630547
 
 " Binds
 bind $ scrollto 100 x
@@ -41,11 +44,11 @@ bind ;C composite hint_focus; !s xdotool key Menu
 bind ;I hint -I
 bind ;K hint -K
 bind ;M composite hint -Jpipe img src | tabopen images.google.com/searchbyimage?image_url=
-bind ;O hint -W fillcmdline_notrail open 
+bind ;O hint -W fillcmdline_notrail open
 bind ;P hint -P
 bind ;S hint -S
-bind ;T hint -W fillcmdline_notrail tabopen 
-bind ;W hint -W fillcmdline_notrail winopen 
+bind ;T hint -W fillcmdline_notrail tabopen
+bind ;W hint -W fillcmdline_notrail winopen
 bind ;Y hint -cF img i => tri.excmds.yankimage(tri.urlutils.getAbsoluteURL(i.src))
 bind ;a hint -a
 bind ;b hint -b
@@ -195,6 +198,7 @@ bind gwp winopen https://getpocket.com/a/
 bind gwr winopen https://www.rakuten.co.jp/
 bind gws winopen https://app.simplenote.com/
 bind gwt winopen https://github.com/tridactyl/tridactyl/
+bind gwu winopen https://video.unext.jp/
 bind gwx winopen https://app.plex.tv/desktop
 bind gwy winopen https://www.youtube.com/?gl=JP
 bind gwz winopen https://us02web.zoom.us/signin
@@ -230,6 +234,8 @@ bind zo zoom -0.1 true
 bind zr zoom -0.5 true
 bind zz zoom 1
 bind <AS-ArrowUp><AS-ArrowUp><AS-ArrowDown><AS-ArrowDown><AS-ArrowLeft><AS-ArrowRight><AS-ArrowLeft><AS-ArrowRight>ba open https://www.youtube.com/watch?v=M3iOROuTuMA
+bind gnu tabopen https://video.unext.jp/
+bind gou open https://video.unext.jp/
 bind --mode=visual 0 js document.getSelection().modify("extend","backward","lineboundary")
 bind --mode=visual t composite js document.getSelection().toString() | fillcmdline tabopen
 bind --mode=visual <Escape> composite js document.getSelection().empty(); mode normal; hidecmdline
@@ -264,7 +270,7 @@ bind --mode=ex <Escape> ex.hide_and_clear
 bind --mode=ex <C-[> ex.hide_and_clear
 bind --mode=ex <ArrowUp> ex.prev_history
 bind --mode=ex <ArrowDown> ex.next_history
-bind --mode=ex <S-Del> ex.execute_ex_on_completion_args tabclose
+bind --mode=ex <S-Delete> ex.execute_ex_on_completion_args tabclose
 bind --mode=ex <A-b> text.backward_word
 bind --mode=ex <A-f> text.forward_word
 bind --mode=ex <C-e> text.end_of_line
@@ -343,7 +349,7 @@ alias man help
 alias !js fillcmdline_tmp 3000 !js is deprecated. Please use js instead
 alias !jsb fillcmdline_tmp 3000 !jsb is deprecated. Please use jsb instead
 alias get_current_url js document.location.href
-alias current_url composite get_current_url | fillcmdline_notrail 
+alias current_url composite get_current_url | fillcmdline_notrail
 alias stop js window.stop()
 alias zo zoom
 alias installnative nativeinstall
@@ -375,12 +381,8 @@ autocmd DocStart ^http(s?)://oyayubi-typing.solaniwa.net mode ignore
 autocmd DocStart ^http(s?)://tweetdeck.twitter.com mode ignore
 autocmd DocStart ^http(s?)://unityroom.com mode ignore
 autocmd DocStart ^http(s?)://www.e-typing.ne.jp mode ignore
-
 autocmd DocLoad ^https://github.com/tridactyl/tridactyl/issues/new$ issue
 autocmd TriStart .* source_quiet
-
-set autocontainmode strict
-set auconcreatecontainer false
 
 " For syntax highlighting see https://github.com/tridactyl/vim-tridactyl
 " vim: set filetype=tridactyl
