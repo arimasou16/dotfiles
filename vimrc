@@ -282,13 +282,13 @@ if has('vim_starting')
     call execute (":!nkf -w \\%APPDATA\\%/SKKFEP/skkuser.txt >> \\%APPDATA\\%/SKKFEP/skkuser8.txt")
   endif
   " simplenote 更新が上手くいかないことがあるので
-  if filewritable(expand("~/.snvim"))
-    if has('win32') || has('win64')
-      call execute (":!del /q /f \\%USERPROFILE\\%\\.snvim")
-    else
-      call execute (":!rm ~/.snvim")
-    endif
-  endif
+  "if filewritable(expand("~/.snvim"))
+  "  if has('win32') || has('win64')
+  "    call execute (":!del /q /f \\%USERPROFILE\\%\\.snvim")
+  "  else
+  "    call execute (":!rm ~/.snvim")
+  "  endif
+  "endif
 endif
 " eskk
 let g:eskk#auto_save_dictionary_at_exit = 0
