@@ -200,7 +200,8 @@ imap time<Tab> <C-R>=strftime("%Y-%m-%dT%H:%M:%S+09:00")<CR>
 " Specify a directory for plugins
 call plug#begin('~/.vim/plugged')
 Plug 'vim-jp/vimdoc-ja'
-Plug 'tyru/eskk.vim'
+"Plug 'tyru/eskk.vim'
+Plug 'vim-skk/skkeleton'
 "Plug 'fuenor/im_control.vim'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'junegunn/vim-easy-align'
@@ -287,7 +288,6 @@ function! s:processLine(line)
   " execute ':Files'
 endfunction
 function! s:change_dir(dir)
-  "let source = 'find -type d -not \( -name .git -prune -o -name node_modules -prune \)'
   let source = 'find -type d -not \( -name .git -prune \)'
   call fzf#run({
     \ 'dir': a:dir,
@@ -297,7 +297,7 @@ function! s:change_dir(dir)
 endfunction
 nnoremap <silent> [fzf]d :call <SID>change_dir('.')<CR>
 nnoremap <silent> [fzf]D :call <SID>change_dir('~/')<CR>
-nnoremap <silent> [fzf]N :call <SID>change_dir('~/Nextcloud')<CR>
+nnoremap <silent> [fzf]n :call <SID>change_dir('~/Nextcloud')<CR>
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
@@ -321,30 +321,66 @@ if has('vim_starting')
   "  endif
   "endif
 endif
-" eskk
-let g:eskk#auto_save_dictionary_at_exit = 0
+"" eskk
+"let g:eskk#auto_save_dictionary_at_exit = 0
+"if has('win32') || has('win64')
+"  let g:eskk#directory = "~/AppData/Roaming/SKKFEP"
+"  let g:eskk#dictionary = { 'path': "~/AppData/Roaming/SKKFEP/skkuser8.txt", 'sorted': 0, 'encoding': 'utf-8', }
+"  let g:eskk#large_dictionary = { 'path': "~/Appdata/Roaming/SKKFEP/DICTS/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp', }
+"elseif executable('ibus')
+"  let g:eskk#directory = "~/.config/ibus-skk"
+"  let g:eskk#dictionary = { 'path': "~/.config/ibus-skk/user.dict", 'sorted': 0, 'encoding': 'utf-8', }
+"  let g:eskk#large_dictionary = { 'path': "/usr/share/skk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp', }
+"elseif executable('fcitx')
+"  let g:eskk#directory = "~/.config/fcitx/skk"
+"  let g:eskk#dictionary = { 'path': "~/.config/fcitx/skk/user.dict", 'sorted': 0, 'encoding': 'utf-8', }
+"  let g:eskk#large_dictionary = { 'path': "/usr/share/skk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp', }
+"elseif executable('fcitx5')
+"  let g:eskk#directory = "~/.config/fcitx5/skk"
+"  let g:eskk#dictionary = { 'path': "~/.config/fcitx5/skk/user.dict", 'sorted': 0, 'encoding': 'utf-8', }
+"  let g:eskk#large_dictionary = { 'path': "/usr/share/skk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp', }
+"endif
+"" Use yaskkserv
+"let g:eskk#server = {
+"\  'host': 'localhost',
+"\  'port': 1178,
+"\}
+" skkeleton
+" skkeletonの有効、無効を切り替え
+imap <C-j> <Plug>(skkeleton-toggle)
+cmap <C-j> <Plug>(skkeleton-toggle)
 if has('win32') || has('win64')
-  let g:eskk#directory = "~/AppData/Roaming/SKKFEP"
-  let g:eskk#dictionary = { 'path': "~/AppData/Roaming/SKKFEP/skkuser8.txt", 'sorted': 0, 'encoding': 'utf-8', }
-  let g:eskk#large_dictionary = { 'path': "~/Appdata/Roaming/SKKFEP/DICTS/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp', }
-elseif executable('ibus')
-  let g:eskk#directory = "~/.config/ibus-skk"
-  let g:eskk#dictionary = { 'path': "~/.config/ibus-skk/user.dict", 'sorted': 0, 'encoding': 'utf-8', }
-  let g:eskk#large_dictionary = { 'path': "/usr/share/skk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp', }
-elseif executable('fcitx')
-  let g:eskk#directory = "~/.config/fcitx/skk"
-  let g:eskk#dictionary = { 'path': "~/.config/fcitx/skk/user.dict", 'sorted': 0, 'encoding': 'utf-8', }
-  let g:eskk#large_dictionary = { 'path': "/usr/share/skk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp', }
-elseif executable('fcitx5')
-  let g:eskk#directory = "~/.config/fcitx5/skk"
-  let g:eskk#dictionary = { 'path': "~/.config/fcitx5/skk/user.dict", 'sorted': 0, 'encoding': 'utf-8', }
-  let g:eskk#large_dictionary = { 'path': "/usr/share/skk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp', }
+  call skkeleton#config({
+    \'globalJisyo':"~/Appdata/Roaming/SKKFEP/DICTS/SKK-JISYO.L",
+    \'userJisyo':"~/AppData/Roaming/SKKFEP/skkuser8.txt",
+  \})
+else
+  call skkeleton#config({
+    \'globalJisyo':"/usr/share/skk/SKK-JISYO.L",
+  \})
+  if executable('fcitx')
+    call skkeleton#config({
+      \'userJisyo':"~/.config/fcitx/skk/user.dict",
+    \})
+  elseif executable('fcitx5')
+    call skkeleton#config({
+      \'userJisyo':"~/.config/fcitx5/skk/user.dict",
+    \})
+  elseif executable('ibus')
+    call skkeleton#config({
+      \'userJisyo':"~/.config/ibus-skk/user.dict",
+    \})
+  endif
 endif
-" Use yaskkserv
-let g:eskk#server = {
-\  'host': 'localhost',
-\  'port': 1178,
-\}
+  call skkeleton#config({
+    \'eggLikeNewline':v:true,
+    \'keepState':v:true,
+    \'useSkkServer':v:true,
+    \'skkServerHost':"127.0.0.1",
+    \'skkServerPort':1178,
+    \'skkServerResEnc':"euc-jp",
+    \'skkServerReqEnc':"euc-jp",
+  \})
 set iminsert=0
 set imsearch=0
 set imdisable
