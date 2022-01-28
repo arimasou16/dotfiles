@@ -140,7 +140,7 @@ augroup my_vimrc
   autocmd!
   " 開いたファイルのカレントディレクトリに移動
   "autocmd BufEnter * call s:ChangeCurrentDirectory()
-  autocmd BufEnter * call s:setcwd()
+  "autocmd BufEnter * call s:setcwd()
   " 新しいバッファの編集を始めたときのファイルタイプを設定する
   autocmd BufEnter * call s:NoneFileTypeSetMarkdown()
   " 自動的にquickfix-windowを開く
@@ -204,8 +204,9 @@ Plug 'tyru/eskk.vim'
 "Plug 'fuenor/im_control.vim'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'junegunn/vim-easy-align'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'mattn/ctrlp-matchfuzzy'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'pbogut/fzf-mru.vim'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'vim-scripts/BufOnly.vim'
@@ -223,6 +224,7 @@ Plug 't9md/vim-quickhl'
 Plug 'tyru/caw.vim'
 "Plug 'mattn/vim-lexiv'
 Plug 'jamessan/vim-gnupg'
+Plug 'vim-denops/denops.vim'
 Plug 'arimasou16/functions.vim'
 if !has('nvim')
   Plug 'thinca/vim-singleton'
@@ -241,38 +243,67 @@ call plug#end()
 if has('clientserver')
   call singleton#enable()
 endif
-" ctrlp
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlPMixed'
-let g:ctrlp_working_path_mode = 'ra'
-" 終了時にキャッシュファイルを削除しない
-let g:ctrlp_clear_cache_on_exit = 0
-let g:ctrlp_use_caching = 1
-let g:ctrlp_match_func = {'match': 'ctrlp_matchfuzzy#matcher'}
 if has('win32') || has('win64')
   set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
 else
   set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 endif
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\v\.(exe|so|dll)$',
-  \ 'link': 'some_bad_symbolic_links',
-  \ }
-" 検索の際に200[ms]のウェイトを入れる（１文字入力の度に検索結果がコロコロ変わるのが気に入らないため）
-let g:ctrlp_lazy_update = 200
-nmap <C-p> [ctrlp]
-nnoremap <silent> [ctrlp]  :<C-u>CtrlP<CR>
-nnoremap <silent> <c-p>m :<C-u>CtrlPMixed<CR>           " ファイル、バッファ、履歴を一度に絞り込みます。ぶっちゃけこれで大体足りるといえば足りる。
-nnoremap <silent> <c-p>b :<C-u>CtrlPBookmarkDir<CR>     " ブックマークしたディレクトリを絞り込む
-nnoremap <silent> <c-p>a :<C-u>CtrlPBookmarkDirAdd!<CR> " ディレクトリをブックマークする
-nnoremap <silent> <c-p>q :<C-u>CtrlPQuickfix<CR>        " vimのquickfixと連携出来ます。:grepとかと組み合わせて使うのがメインかも。
-nnoremap <silent> <c-p>t :<C-u>CtrlPTag<CR>             " タグ一覧を表示、絞り込みできます。
-nnoremap <silent> <c-p>l :<C-u>:CtrlPChange<CR>         " 現在のファイル内の各行を対象に絞り込みます。
-nnoremap <silent> <c-p>d :<C-u>CtrlPDir<CR>             " ディレクトリを検索してカレントディレクトリを切り替えたりできます。
+" fzf
+nmap <C-f> [fzf]
+let g:fzf_command_prefix = 'Fzf'
+nnoremap <silent> [fzf]/ :<C-u>:FzfHistory/<CR>
+nnoremap <silent> [fzf]: :<C-u>:FzfHistory:<CR>
+nnoremap <silent> [fzf]b :<C-u>:FzfBuffers<CR>
+nnoremap <silent> [fzf]c :<C-u>:FzfColors<CR>
+nnoremap <silent> [fzf]f :<C-u>:FzfFiles<CR>
+nnoremap <silent> [fzf]g :<C-u>:FzfGFiles<CR>
+nnoremap <silent> [fzf]G :<C-u>:FzfGFiles?<CR>
+nnoremap <silent> [fzf]h :<C-u>:FzfHistory<CR>
+nnoremap <silent> [fzf]l :<C-u>:FzfLines<CR>
+nnoremap <silent> [fzf]L :<C-u>:FzfBLines<CR>
+nnoremap <silent> [fzf]m :<C-u>:FzfMarks<CR>
+nnoremap <silent> [fzf]M :<C-u>:FzfMaps<CR>
+nnoremap <silent> [fzf]p :<C-u>:FZFMru<CR>
+nnoremap <silent> [fzf]r :<C-u>:FzfRg<CR>
+nnoremap <silent> [fzf]t :<C-u>:FzfTags<CR>
+nnoremap <silent> [fzf]T :<C-u>:FzfBTags<CR>
+nnoremap <silent> [fzf]w :<C-u>:FzfWindows<CR>
+let g:fzf_preview_window = ['up:40%:hidden', 'ctrl-/']
+" [Buffers] Jump to the existing window if possible
+let g:fzf_buffers_jump = 1
+" [Commands] --expect expression for directly executing the command
+let g:fzf_commands_expect = 'alt-enter,ctrl-x'
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+" Insert mode completion
+imap <c-x><c-w> <plug>(fzf-complete-word)
+imap <c-x><c-p> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-buffer-line)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+function! s:processLine(line)
+  execute 'lcd' a:line
+  " execute ':Files'
+endfunction
+function! s:change_dir(dir)
+  "let source = 'find -type d -not \( -name .git -prune -o -name node_modules -prune \)'
+  let source = 'find -type d -not \( -name .git -prune \)'
+  call fzf#run({
+    \ 'dir': a:dir,
+    \ 'source': source,
+    \ 'sink': {line -> s:processLine(line)}
+    \ })
+endfunction
+nnoremap <silent> [fzf]d :call <SID>change_dir('.')<CR>
+nnoremap <silent> [fzf]D :call <SID>change_dir('~/')<CR>
+nnoremap <silent> [fzf]N :call <SID>change_dir('~/Nextcloud')<CR>
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
 if executable('rg')
   set grepprg=rg\ --vimgrep\ --no-heading
-  let g:ctrlp_user_command = '[ $PWD == $HOME ] && echo "In HOME Directory" || rg %s --files --color=never --glob ""'
 endif
 " starting
 if has('vim_starting')
@@ -310,10 +341,10 @@ elseif executable('fcitx5')
   let g:eskk#large_dictionary = { 'path': "/usr/share/skk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp', }
 endif
 " Use yaskkserv
-"let g:eskk#server = {
-"\  'host': 'localhost',
-"\  'port': 1178,
-"\}
+let g:eskk#server = {
+\  'host': 'localhost',
+\  'port': 1178,
+\}
 set iminsert=0
 set imsearch=0
 set imdisable
