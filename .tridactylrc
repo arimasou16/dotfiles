@@ -1,21 +1,19 @@
 " General Settings
 set configversion 2.0
-set searchurls.google https://www.google.com/search?q=
-set searchurls.yahoo https://search.yahoo.com/search?p=
-set searchurls.twitter https://twitter.com/search?q=
-set searchurls.wikipedia https://en.wikipedia.org/wiki/Special:Search/
-set searchurls.youtube https://www.youtube.com/results?search_query=
 set searchurls.amazon https://www.amazon.co.jp/s?k=
+set searchurls.bic https://www.biccamera.com/bc/category/?dispNo=&q=
+set searchurls.dmm https://www.dmm.com/search/?redirect=1&enc=UTF-8&category=&searchstr=
 set searchurls.github https://github.com/search?utf8=✓&q=
-set searchurls.searx https://searx.me/?category_general=on&q=
+set searchurls.google https://www.google.com/search?q=
+set searchurls.hmv https://www.hmv.co.jp/search/searchresults/?category=KEYWORD&keyword=
 set searchurls.mdn https://developer.mozilla.org/ja/search?q=
 set searchurls.mora https://mora.jp/search/top?keyWord=
-set searchurls.bic https://www.biccamera.com/bc/category/?dispNo=&q=
-set searchurls.alc https://www.alc.co.jp/#?q=
-set searchurls.amazon https://www.amazon.co.jp/s?k=
+set searchurls.quora https://jp.quora.com/search?q=
 set searchurls.raku https://search.rakuten.co.jp/search/mall/%s/?f=1&grp=product
-set searchurls.dmm https://www.dmm.com/search/?redirect=1&enc=UTF-8&category=&searchstr=
-set searchurls.hmv https://www.hmv.co.jp/search/searchresults/?category=KEYWORD&keyword=
+set searchurls.twitter https://twitter.com/search?q=
+set searchurls.wikipedia https://ja.wikipedia.org/wiki/Special:Search/
+set searchurls.yahoo https://search.yahoo.com/search?p=
+set searchurls.youtube https://www.youtube.com/results?search_query=
 set profiledir C:\Users\yoyuu\AppData\Roaming\Mozilla\Firefox\Profiles\i6ehmx3i.default-release
 set hintfiltermode vimperator-reflow
 set hintnames short
@@ -26,7 +24,7 @@ set allowautofocus false
 set followpagepatterns.next ^(次へ|進む|もっと見る|もっとみる|次のページ|続き|next|newer|more|(>|→|»|≫|>>)\b)
 set followpagepatterns.prev ^(前へ|戻る|前のページ|prev(ious)?|older|back|(<|←|«|≪|<<|«|<<)\b)
 js tri.browserBg.runtime.getPlatformInfo().then(os=>{const editorcmd = os.os=="linux" ? "kitty nvim" : "gvim -u NONE -c \":e ++enc=utf8\""; tri.config.set("editorcmd", editorcmd)})
-set newtab moz-extension://44665207-18d1-4b9d-8093-aa575fe70c0d/newtab.html
+set newtab moz-extension://5cbacd8e-d03d-4c34-9ff2-360b3034304e/newtab.html
 colourscheme dark
 set autocontainmode strict
 set auconcreatecontainer false
@@ -160,6 +158,7 @@ bind gni tabopen https://www.instagram.com/
 bind gnl tabopen https://www.deepl.com/ja/translator
 bind gnn tabopen https://www.netflix.com/jp/
 bind gnp tabopen https://getpocket.com/a/
+bind gnq tabopen https://jp.quora.com/
 bind gnr tabopen https://www.rakuten.co.jp/
 bind gns tabopen https://app.simplenote.com/
 bind gnt tabopen https://github.com/tridactyl/tridactyl/blob/master/src/lib/config.ts
@@ -176,6 +175,7 @@ bind goi open https://www.instagram.com/
 bind gol open https://www.deepl.com/ja/translator
 bind gon open https://www.netflix.com/jp/
 bind gop open https://getpocket.com/a/
+bind goq open https://jp.quora.com/
 bind gor open https://www.rakuten.co.jp/
 bind gos open https://app.simplenote.com/
 bind got open https://github.com/tridactyl/tridactyl/blob/master/src/lib/config.ts
@@ -195,6 +195,7 @@ bind gwi winopen https://www.instagram.com/
 bind gwl winopen https://www.deepl.com/ja/translator
 bind gwn winopen https://www.netflix.com/jp/
 bind gwp winopen https://getpocket.com/a/
+bind gwq winopen https://jp.quora.com/
 bind gwr winopen https://www.rakuten.co.jp/
 bind gws winopen https://app.simplenote.com/
 bind gwt winopen https://github.com/tridactyl/tridactyl/
