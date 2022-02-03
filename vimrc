@@ -139,7 +139,7 @@ augroup my_vimrc
   " グループ内の autocmd をリセットする
   autocmd!
   " 開いたファイルのカレントディレクトリに移動
-  "autocmd BufEnter * call s:ChangeCurrentDirectory()
+  autocmd BufEnter * call s:ChangeCurrentDirectory()
   "autocmd BufEnter * call s:setcwd()
   " 新しいバッファの編集を始めたときのファイルタイプを設定する
   autocmd BufEnter * call s:NoneFileTypeSetMarkdown()
@@ -182,11 +182,16 @@ nnoremap <silent><Esc><Esc> :<C-u>set nohlsearch!<CR>
 " function.vimを開く
 nnoremap <silent> <Leader>fn :<C-u>tabedit $HOME/.vim/plugged/functions.vim/plugin/functions.vim<CR>
 if has('nvim')
-  " Shift + Insertでペイスト
-  noremap! <S-Insert> <C-R>+
-  " 設定ファイルの再ロード
-  nnoremap <F5> :<C-u>source $HOME/.config/nvim/init.vim<CR>
-  nnoremap <Leader>rc :<C-u>tabedit $HOME/.config/nvim/init.vim<CR>
+  if has('win32') || has('win64')
+    nnoremap <F5> :<C-u>source $HOME\Appdata\Local\nvim\init.vim<CR> :source $HOME\Appdata\Local\nvim\ginit.vim<CR>
+    nnoremap <Leader>rc :<C-u>tabedit $HOME\Appdata\Local\nvim\init.vim<CR>
+  else
+    " Shift + Insertでペイスト
+    noremap! <S-Insert> <C-R>+
+    " 設定ファイルの再ロード
+    nnoremap <F5> :<C-u>source $HOME/.config/nvim/init.vim<CR>
+    nnoremap <Leader>rc :<C-u>tabedit $HOME/.config/nvim/init.vim<CR>
+  endif
 elseif has('win32') || has('win64')
   nnoremap <F5> :<C-u>source $HOME/_vimrc<CR> :source $HOME/_gvimrc<CR>
   nnoremap <Leader>rc :<C-u>tabedit $HOME/_vimrc<CR>
@@ -208,8 +213,10 @@ Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'pbogut/fzf-mru.vim'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
+"Plug 'SirVer/ultisnips'
+"Plug 'honza/vim-snippets'
+Plug 'hrsh7th/vim-vsnip'
+"Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'vim-scripts/BufOnly.vim'
 Plug 'vim-scripts/copypath.vim'
 Plug 'fuenor/qfixgrep'
@@ -223,7 +230,6 @@ Plug 'itchyny/lightline.vim'
 Plug 'thinca/vim-quickrun'
 Plug 't9md/vim-quickhl'
 Plug 'tyru/caw.vim'
-"Plug 'mattn/vim-lexiv'
 Plug 'jamessan/vim-gnupg'
 Plug 'vim-denops/denops.vim'
 Plug 'arimasou16/functions.vim'
@@ -288,7 +294,11 @@ function! s:processLine(line)
   " execute ':Files'
 endfunction
 function! s:change_dir(dir)
-  let source = 'find -type d -not \( -name .git -prune \)'
+  if has('win32') || has('win64')
+    let source = 'dir /b /s /ad'
+  else
+    let source = 'find -type d -not \( -name .git -prune \)'
+  endif
   call fzf#run({
     \ 'dir': a:dir,
     \ 'source': source,
@@ -297,7 +307,11 @@ function! s:change_dir(dir)
 endfunction
 nnoremap <silent> [fzf]d :call <SID>change_dir('.')<CR>
 nnoremap <silent> [fzf]D :call <SID>change_dir('~/')<CR>
-nnoremap <silent> [fzf]n :call <SID>change_dir('~/Nextcloud')<CR>
+if has('win32') || has('win64')
+  nnoremap <silent> [fzf]n :call <SID>change_dir('E:\Nextcloud')<CR>
+else
+  nnoremap <silent> [fzf]n :call <SID>change_dir('~/Nextcloud')<CR>
+endif
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
@@ -372,15 +386,17 @@ else
     \})
   endif
 endif
-  call skkeleton#config({
-    \'eggLikeNewline':v:true,
-    \'keepState':v:true,
-    \'useSkkServer':v:true,
-    \'skkServerHost':"127.0.0.1",
-    \'skkServerPort':1178,
-    \'skkServerResEnc':"euc-jp",
-    \'skkServerReqEnc':"euc-jp",
-  \})
+  "if !has('win32') && !has('win64')
+    call skkeleton#config({
+      \'eggLikeNewline':v:true,
+      \'keepState':v:true,
+      \'useSkkServer':v:true,
+      \'skkServerHost':"127.0.0.1",
+      \'skkServerPort':1178,
+      \'skkServerResEnc':"euc-jp",
+      \'skkServerReqEnc':"euc-jp",
+    \})
+  "endif
 set iminsert=0
 set imsearch=0
 set imdisable
@@ -394,8 +410,8 @@ nnoremap <silent> <Leader>oh :OpenHugo<CR>
 let g:table_mode_corner="|"
 "python
 if has('win32') || has('win64')
-  let g:python_host_prog = expand('~/AppData/Local/Programs/Python/Python37')
-  let g:python3_host_prog = expand('~/AppData/Local/Programs/Python/Python37')
+  let g:python_host_prog ='C:\Users\yoyuu\AppData\Local\Programs\Python\Python37\python.exe'
+  let g:python3_host_prog ='C:\Users\yoyuu\AppData\Local\Programs\Python\Python37\python.exe'
 else
   let g:python3_host_prog ='/usr/bin/python3'
 endif
@@ -418,20 +434,42 @@ nnoremap <silent> <Leader>sp :<C-u>SimplenotePin<CR>
 let QFixWin_EnableMode = 1
 " QFixHowm/QFixGrepの結果表示にロケーションリストを使用する/しない
 let QFix_UseLocationList = 1
-" ultisnips
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsListSnippets="<c-tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-f>"
-let g:UltiSnipsJumpBackwardTrigger="<c-b>"
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
-if has('win32') || has('win64')
-  " vimfilesと.vimをリンク貼っているのだが.vimで設定すると.vimとvimfilesどちらか選択する必要がある
-  let g:UltiSnipsSnippetDirectories=[$HOME.'/vimfiles/UltiSnips', 'UltiSnips']
-else
-  let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/UltiSnips', 'UltiSnips']
-endif
+"" ultisnips
+"" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+"let g:UltiSnipsExpandTrigger="<tab>"
+"let g:UltiSnipsListSnippets="<c-tab>"
+"let g:UltiSnipsJumpForwardTrigger="<c-f>"
+"let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+"" If you want :UltiSnipsEdit to split your window.
+"let g:UltiSnipsEditSplit="vertical"
+"if has('win32') || has('win64')
+"  " vimfilesと.vimをリンク貼っているのだが.vimで設定すると.vimとvimfilesどちらか選択する必要がある
+"  let g:UltiSnipsSnippetDirectories=[$HOME.'/vimfiles/UltiSnips', 'UltiSnips']
+"else
+"  let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/UltiSnips', 'UltiSnips']
+"endif
+" vsnip
+let g:vsnip_snippet_dir = expand('~/.vim/vsnip')
+"Expand
+imap <expr> <C-S-j> vsnip#expandable() ? '<Plug>(vsnip-expand)'         : '<C-S-j>'
+smap <expr> <C-S-j> vsnip#expandable() ? '<Plug>(vsnip-expand)'         : '<C-S-j>'
+" Expand or jump
+imap <expr> <C-l>   vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+smap <expr> <C-l>   vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+" Jump forward or backward
+imap <expr> <Tab>   vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+smap <expr> <Tab>   vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+imap <expr> <S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+smap <expr> <S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+" Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
+" See https://github.com/hrsh7th/vim-vsnip/pull/50
+nmap s      <Plug>(vsnip-select-text)
+xmap s      <Plug>(vsnip-select-text)
+nmap S      <Plug>(vsnip-cut-text)
+xmap S      <Plug>(vsnip-cut-text)
+" If you want to use snippet for multiple filetypes, you can `g:vsnip_filetypes` for it.
+let g:vsnip_filetypes = {}
+let g:vsnip_filetypes.markdown = ['hugo']
 " vaffle
 nnoremap <silent> <Leader>va :<C-u>Vaffle<CR>
 let g:vaffle_auto_cd = 1
@@ -495,11 +533,11 @@ if !has('gui_running')
   let g:battery#update_statusline = 1 " For statusline.
   syntax on
   set background=dark
-  if exists('#lightline') && (has('win32') || has('win64'))
+  if has('nvim')
+    colorscheme NeoSolarized
+  elseif exists('#lightline') && (has('win32') || has('win64'))
     let g:solarized_termcolors=256
     colorscheme solarized
-  elseif has('nvim')
-    colorscheme NeoSolarized
   else
     colorscheme molokai
   endif

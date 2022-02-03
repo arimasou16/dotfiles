@@ -1,0 +1,57 @@
+{
+  "Resize Image": {
+    "prefix": ["image"],
+    "body": [
+      "{{< image-fit name=\"${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}-00001.png}\" alt=\"${1}\">}}"
+    ],
+    "description": "リサイズ画像タグ挿入."
+  },
+  "Caption": {
+    "prefix": ["cap"],
+    "body": [
+      "caption=\"${CLIPBOARD}\""
+    ],
+    "description": "画像キャプション挿入."
+  },
+  "Float Clear": {
+    "prefix": ["clear"],
+    "body": [
+      "{{< clearboth >}}"
+    ],
+    "description": "回り込み(float)の解除"
+  },
+  "Add": {
+    "prefix": ["add"],
+    "body": [
+      "---",
+      "**追記 ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}**  ",
+      "**追記ここまで**",
+      "",
+      "---"
+    ],
+    "description": "追記"
+  },
+  "LastMod": {
+    "prefix": ["last"],
+    "body": [
+      "lastmod:${VIM:strftime(\"%Y-%m-%dT%H:%M:%S+09:00\")}"
+    ],
+    "description": "更新日"
+  },
+  "Twitter": {
+    "prefix": ["twitter"],
+    "body": [
+      "{{< tweet ${CLIPBOARD} >}}:"
+    ],
+    "description": "Twitterタグ埋め込み"
+  },
+  "Link": {
+    "prefix": ["link"],
+    "body": [
+        "[$TM_SELECTED_TEXT][]",
+        "",
+        "[$TM_SELECTED_TEXT]: url"
+    ],
+    "description": "Link for selected text"
+  }
+}
