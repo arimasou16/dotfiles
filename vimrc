@@ -205,16 +205,13 @@ imap time<Tab> <C-R>=strftime("%Y-%m-%dT%H:%M:%S+09:00")<CR>
 " Specify a directory for plugins
 call plug#begin('~/.vim/plugged')
 Plug 'vim-jp/vimdoc-ja'
-"Plug 'tyru/eskk.vim'
 Plug 'vim-skk/skkeleton'
-"Plug 'fuenor/im_control.vim'
+Plug 'fuenor/im_control.vim'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'pbogut/fzf-mru.vim'
-"Plug 'SirVer/ultisnips'
-"Plug 'honza/vim-snippets'
 Plug 'hrsh7th/vim-vsnip'
 "Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'vim-scripts/BufOnly.vim'
@@ -312,6 +309,20 @@ if has('win32') || has('win64')
 else
   nnoremap <silent> [fzf]n :call <SID>change_dir('~/Nextcloud')<CR>
 endif
+function! s:copy_results(lines)
+  let joined_lines = join(a:lines, "\n")
+  if len(a:lines) > 1
+    let joined_lines .= "\n"
+  endif
+  let @+ = joined_lines
+endfunction
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit',
+  \ 'ctrl-y': ':r !echo',
+  \ 'ctrl-o': function('s:copy_results'),
+  \ }
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
@@ -319,46 +330,6 @@ command! -bang -nargs=* Rg
 if executable('rg')
   set grepprg=rg\ --vimgrep\ --no-heading
 endif
-" starting
-if has('vim_starting')
-  if filewritable(expand("~/AppData/Roaming/SKKFEP/skkuser.txt"))
-    " 何故かutf8じゃないと読み込みが上手くいかない
-    call execute (":!echo ;;; -*- coding: utf-8 -*- > \\%APPDATA\\%/SKKFEP/skkuser8.txt")
-    call execute (":!nkf -w \\%APPDATA\\%/SKKFEP/skkuser.txt >> \\%APPDATA\\%/SKKFEP/skkuser8.txt")
-  endif
-  " simplenote 更新が上手くいかないことがあるので
-  "if filewritable(expand("~/.snvim"))
-  "  if has('win32') || has('win64')
-  "    call execute (":!del /q /f \\%USERPROFILE\\%\\.snvim")
-  "  else
-  "    call execute (":!rm ~/.snvim")
-  "  endif
-  "endif
-endif
-"" eskk
-"let g:eskk#auto_save_dictionary_at_exit = 0
-"if has('win32') || has('win64')
-"  let g:eskk#directory = "~/AppData/Roaming/SKKFEP"
-"  let g:eskk#dictionary = { 'path': "~/AppData/Roaming/SKKFEP/skkuser8.txt", 'sorted': 0, 'encoding': 'utf-8', }
-"  let g:eskk#large_dictionary = { 'path': "~/Appdata/Roaming/SKKFEP/DICTS/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp', }
-"elseif executable('ibus')
-"  let g:eskk#directory = "~/.config/ibus-skk"
-"  let g:eskk#dictionary = { 'path': "~/.config/ibus-skk/user.dict", 'sorted': 0, 'encoding': 'utf-8', }
-"  let g:eskk#large_dictionary = { 'path': "/usr/share/skk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp', }
-"elseif executable('fcitx')
-"  let g:eskk#directory = "~/.config/fcitx/skk"
-"  let g:eskk#dictionary = { 'path': "~/.config/fcitx/skk/user.dict", 'sorted': 0, 'encoding': 'utf-8', }
-"  let g:eskk#large_dictionary = { 'path': "/usr/share/skk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp', }
-"elseif executable('fcitx5')
-"  let g:eskk#directory = "~/.config/fcitx5/skk"
-"  let g:eskk#dictionary = { 'path': "~/.config/fcitx5/skk/user.dict", 'sorted': 0, 'encoding': 'utf-8', }
-"  let g:eskk#large_dictionary = { 'path': "/usr/share/skk/SKK-JISYO.L", 'sorted': 1, 'encoding': 'euc-jp', }
-"endif
-"" Use yaskkserv
-"let g:eskk#server = {
-"\  'host': 'localhost',
-"\  'port': 1178,
-"\}
 " skkeleton
 " skkeletonの有効、無効を切り替え
 imap <C-j> <Plug>(skkeleton-toggle)
@@ -366,7 +337,7 @@ cmap <C-j> <Plug>(skkeleton-toggle)
 if has('win32') || has('win64')
   call skkeleton#config({
     \'globalJisyo':"~/Appdata/Roaming/SKKFEP/DICTS/SKK-JISYO.L",
-    \'userJisyo':"~/AppData/Roaming/SKKFEP/skkuser8.txt",
+    \'userJisyo':"~/.skkeleton",
   \})
 else
   call skkeleton#config({
@@ -386,17 +357,15 @@ else
     \})
   endif
 endif
-  "if !has('win32') && !has('win64')
-    call skkeleton#config({
-      \'eggLikeNewline':v:true,
-      \'keepState':v:true,
-      \'useSkkServer':v:true,
-      \'skkServerHost':"127.0.0.1",
-      \'skkServerPort':1178,
-      \'skkServerResEnc':"euc-jp",
-      \'skkServerReqEnc':"euc-jp",
-    \})
-  "endif
+call skkeleton#config({
+  \'eggLikeNewline':v:true,
+  \'keepState':v:true,
+  \'useSkkServer':v:true,
+  \'skkServerHost':"127.0.0.1",
+  \'skkServerPort':1178,
+  \'skkServerResEnc':"euc-jp",
+  \'skkServerReqEnc':"euc-jp",
+\})
 set iminsert=0
 set imsearch=0
 set imdisable
@@ -410,8 +379,7 @@ nnoremap <silent> <Leader>oh :OpenHugo<CR>
 let g:table_mode_corner="|"
 "python
 if has('win32') || has('win64')
-  let g:python_host_prog ='C:\Users\yoyuu\AppData\Local\Programs\Python\Python37\python.exe'
-  let g:python3_host_prog ='C:\Users\yoyuu\AppData\Local\Programs\Python\Python37\python.exe'
+  let g:python3_host_prog = '~/AppData/Local/Programs/Python/Python37/python'
 else
   let g:python3_host_prog ='/usr/bin/python3'
 endif
@@ -434,20 +402,6 @@ nnoremap <silent> <Leader>sp :<C-u>SimplenotePin<CR>
 let QFixWin_EnableMode = 1
 " QFixHowm/QFixGrepの結果表示にロケーションリストを使用する/しない
 let QFix_UseLocationList = 1
-"" ultisnips
-"" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-"let g:UltiSnipsExpandTrigger="<tab>"
-"let g:UltiSnipsListSnippets="<c-tab>"
-"let g:UltiSnipsJumpForwardTrigger="<c-f>"
-"let g:UltiSnipsJumpBackwardTrigger="<c-b>"
-"" If you want :UltiSnipsEdit to split your window.
-"let g:UltiSnipsEditSplit="vertical"
-"if has('win32') || has('win64')
-"  " vimfilesと.vimをリンク貼っているのだが.vimで設定すると.vimとvimfilesどちらか選択する必要がある
-"  let g:UltiSnipsSnippetDirectories=[$HOME.'/vimfiles/UltiSnips', 'UltiSnips']
-"else
-"  let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/UltiSnips', 'UltiSnips']
-"endif
 " vsnip
 let g:vsnip_snippet_dir = expand('~/.vim/vsnip')
 "Expand
