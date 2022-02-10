@@ -29,6 +29,7 @@ augroup my_gvimrc
     if has('win32') || has('win64')
       "execute 'GuiFont! SauceCodePro NF:h14'
       execute "GuiFont! HackGen Console:h14"
+      call GuiClipboard()
     else
     "execute "GuiFont! Illusion N:h14"
     execute "GuiFont! SauceCodePro Nerd Font Mono:h14"
