@@ -2,7 +2,7 @@
   "Resize Image": {
     "prefix": ["image"],
     "body": [
-      "{{< image-fit name=\"${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}-00001.png}\" alt=\"${1}\">}}"
+      "{{< image-fit name=\"${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}-00001.png\" alt=\"${1}\">}}"
     ],
     "description": "リサイズ画像タグ挿入."
   },
