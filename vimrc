@@ -106,12 +106,6 @@ set hidden
 " ヘルプは日本語優先
 set helplang=ja,en
 " ファイルと同じディレクトリ移動
-function! s:ChangeCurrentDirectory()
-  let l:dir = expand("%:p:h")
-  if isdirectory(fnamemodify(l:dir, ":p"))
-    execute printf('lcd `=%s`', string(fnamemodify(l:dir, ":p")))
-  endif
-endfunction
 function! s:setcwd()
   let cph = expand('%:p:h', 1)
   if cph =~ '^.\+://' | retu | en
@@ -130,17 +124,12 @@ endfunction
 " ランダムな数値を出力
 imap num<Tab> <ESC>i<C-R>=str2nr(matchstr(reltimestr(reltime()), '\v\.@<=\d+')[1:])<CR>
 imap hex<Tab> <ESC>i<C-R>=printf('%x',matchstr(reltimestr(reltime()), '\v\.@<=\d+')[1:])<CR>
-function! s:Rand()
-  "return str2nr(matchstr(reltimestr(reltime()), '\v\.@<=\d+')[1:])
-  echo str2nr(matchstr(reltimestr(reltime()), '\v\.@<=\d+')[1:])
-endfunction
 " autocmd を "vimrc" という名前でグループ化
 augroup my_vimrc
   " グループ内の autocmd をリセットする
   autocmd!
   " 開いたファイルのカレントディレクトリに移動
-  autocmd BufEnter * call s:ChangeCurrentDirectory()
-  "autocmd BufEnter * call s:setcwd()
+  autocmd BufEnter * call s:setcwd()
   " 新しいバッファの編集を始めたときのファイルタイプを設定する
   autocmd BufEnter * call s:NoneFileTypeSetMarkdown()
   " 自動的にquickfix-windowを開く
@@ -206,7 +195,6 @@ imap time<Tab> <C-R>=strftime("%Y-%m-%dT%H:%M:%S+09:00")<CR>
 call plug#begin('~/.vim/plugged')
 Plug 'vim-jp/vimdoc-ja'
 Plug 'vim-skk/skkeleton'
-Plug 'fuenor/im_control.vim'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -347,10 +335,12 @@ else
     call skkeleton#config({
       \'userJisyo':"~/.config/fcitx/skk/user.dict",
     \})
+    call system('fcitx-remote -c')
   elseif executable('fcitx5')
     call skkeleton#config({
       \'userJisyo':"~/.config/fcitx5/skk/user.dict",
     \})
+    call system('fcitx5-remote -c')
   elseif executable('ibus')
     call skkeleton#config({
       \'userJisyo':"~/.config/ibus-skk/user.dict",
