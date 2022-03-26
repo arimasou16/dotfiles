@@ -156,6 +156,7 @@ bind gng tabopen https://douga.geo-online.co.jp/
 bind gnh tabopen https://www.hmv.co.jp/
 bind gni tabopen https://www.instagram.com/
 bind gnl tabopen https://www.deepl.com/ja/translator
+bind gnm tabopen https://music.amazon.co.jp/?
 bind gnn tabopen https://www.netflix.com/jp/
 bind gnp tabopen https://getpocket.com/a/
 bind gnq tabopen https://jp.quora.com/
@@ -173,6 +174,7 @@ bind gog open https://douga.geo-online.co.jp/
 bind goh open https://www.hmv.co.jp/
 bind goi open https://www.instagram.com/
 bind gol open https://www.deepl.com/ja/translator
+bind gom open https://music.amazon.co.jp/?
 bind gon open https://www.netflix.com/jp/
 bind gop open https://getpocket.com/a/
 bind goq open https://jp.quora.com/
@@ -193,6 +195,7 @@ bind gwg winopen https://douga.geo-online.co.jp/
 bind gwh winopen https://www.hmv.co.jp/
 bind gwi winopen https://www.instagram.com/
 bind gwl winopen https://www.deepl.com/ja/translator
+bind gwm winopen https://music.amazon.co.jp/?
 bind gwn winopen https://www.netflix.com/jp/
 bind gwp winopen https://getpocket.com/a/
 bind gwq winopen https://jp.quora.com/
