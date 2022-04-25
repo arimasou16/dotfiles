@@ -163,6 +163,8 @@ bind gnq tabopen https://jp.quora.com/
 bind gnr tabopen https://www.rakuten.co.jp/
 bind gns tabopen https://app.simplenote.com/
 bind gnt tabopen https://github.com/tridactyl/tridactyl/blob/master/src/lib/config.ts
+bind gnu tabopen https://video.unext.jp/
+bind gnv tabopen https://www.amazon.co.jp/Prime-Video/b?node=3535604051
 bind gnx tabopen https://app.plex.tv/desktop
 bind gny tabopen https://www.youtube.com/?gl=JP
 bind gnz tabopen https://us02web.zoom.us/signin
@@ -181,6 +183,8 @@ bind goq open https://jp.quora.com/
 bind gor open https://www.rakuten.co.jp/
 bind gos open https://app.simplenote.com/
 bind got open https://github.com/tridactyl/tridactyl/blob/master/src/lib/config.ts
+bind gou open https://video.unext.jp/
+bind gov open https://www.amazon.co.jp/Prime-Video/b?node=3535604051
 bind gox open https://app.plex.tv/desktop
 bind goy open https://www.youtube.com/?gl=JP
 bind goz open https://us02web.zoom.us/signin
@@ -203,6 +207,7 @@ bind gwr winopen https://www.rakuten.co.jp/
 bind gws winopen https://app.simplenote.com/
 bind gwt winopen https://github.com/tridactyl/tridactyl/
 bind gwu winopen https://video.unext.jp/
+bind gwv winopen https://www.amazon.co.jp/Prime-Video/b?node=3535604051
 bind gwx winopen https://app.plex.tv/desktop
 bind gwy winopen https://www.youtube.com/?gl=JP
 bind gwz winopen https://us02web.zoom.us/signin
