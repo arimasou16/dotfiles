@@ -34,7 +34,7 @@
   "LastMod": {
     "prefix": ["last"],
     "body": [
-      "lastmod:${VIM:strftime(\"%Y-%m-%dT%H:%M:%S+09:00\")}"
+      "lastmod: ${VIM:strftime(\"%Y-%m-%dT%H:%M:%S+09:00\")}"
     ],
     "description": "更新日"
   },
