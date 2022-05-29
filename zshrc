@@ -110,3 +110,5 @@ function install_powerline_precmd() {
 if [ "$TERM" != "linux" ]; then
     install_powerline_precmd
 fi
+# emacs keybind
+bindkey -e
