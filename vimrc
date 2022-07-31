@@ -137,6 +137,8 @@ augroup my_vimrc
   "挿入モードを抜けるとき、set nopaste を実行する。
   autocmd InsertLeave * set nopaste
   autocmd BufNewFile,BufRead *.sql,*.bat,*.vim,*vimrc,*.js,*.gs setlocal tabstop=2 softtabstop=2 shiftwidth=2
+  " *.mdファイル自動保存
+  autocmd TextChanged,TextChangedI *.md silent write
 augroup END
 """"""""""""""""""""""""""""""
 "キーマップ
@@ -201,7 +203,9 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'pbogut/fzf-mru.vim'
 Plug 'hrsh7th/vim-vsnip'
-"Plug 'hrsh7th/vim-vsnip-integ'
+Plug 'hrsh7th/vim-vsnip-integ'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
 Plug 'vim-scripts/BufOnly.vim'
 Plug 'vim-scripts/copypath.vim'
 Plug 'fuenor/qfixgrep'
@@ -216,7 +220,9 @@ Plug 'thinca/vim-quickrun'
 Plug 't9md/vim-quickhl'
 Plug 'tyru/caw.vim'
 Plug 'jamessan/vim-gnupg'
+Plug 'skanehira/translate.vim'
 Plug 'vim-denops/denops.vim'
+Plug 'tpope/vim-fugitive'
 Plug 'arimasou16/functions.vim'
 if !has('nvim')
   Plug 'thinca/vim-singleton'
@@ -490,7 +496,9 @@ endif
 " 行頭にコメントをトグル
 nmap <Leader>/ <Plug>(caw:zeropos:toggle)
 vmap <Leader>/ <Plug>(caw:zeropos:toggle)
-"endif
+" translate.vim
+nmap gr <Plug>(Translate)
+vmap t <Plug>(VTranslate)
 " vim透明化
 if has('nvim')
   " ターミナル設定で透過させる

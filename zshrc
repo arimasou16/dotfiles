@@ -112,3 +112,5 @@ if [ "$TERM" != "linux" ]; then
 fi
 # emacs keybind
 bindkey -e
+export TERM=xterm
+
