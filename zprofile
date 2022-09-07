@@ -2,9 +2,9 @@
 export DENO_INSTALL="$HOME/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.opam/default/bin:$PATH"
-export GLFW_IM_MODULE=ibus
 export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
 export SUDO_EDITOR=/usr/bin/nvim
 export EDITOR=/usr/bin/nvim
 export TERMINAL=$HOME/.local/bin/kitty
+#export PATH="$HOME/.opam/default/bin:$PATH"
+#export GLFW_IM_MODULE=ibus
