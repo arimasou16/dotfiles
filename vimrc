@@ -351,6 +351,7 @@ else
     call skkeleton#config({
       \'userJisyo':"~/.config/ibus-skk/user.dict",
     \})
+    call system('ibus engine "xkb:us::eng"')
   endif
 endif
 call skkeleton#config({
