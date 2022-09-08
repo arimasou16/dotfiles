@@ -1,7 +1,11 @@
 . "$HOME/.cargo/env"
 export DENO_INSTALL="$HOME/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
+export PATH="/usr/local/go/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export PATH="$GOPATH/bin:$PATH"
 export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
 export SUDO_EDITOR=/usr/bin/nvim
 export EDITOR=/usr/bin/nvim
