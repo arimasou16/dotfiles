@@ -138,7 +138,7 @@ augroup my_vimrc
   autocmd InsertLeave * set nopaste
   autocmd BufNewFile,BufRead *.sql,*.bat,*.vim,*vimrc,*.js,*.gs setlocal tabstop=2 softtabstop=2 shiftwidth=2
   " *.mdファイル自動保存
-  autocmd TextChanged,TextChangedI *.md silent write
+  "autocmd TextChanged,TextChangedI *.md silent write
 augroup END
 """"""""""""""""""""""""""""""
 "キーマップ
@@ -172,20 +172,24 @@ nnoremap <silent> ,mp :<C-u>MarkdownPreview<CR>
 nnoremap <silent><Esc><Esc> :<C-u>set nohlsearch!<CR>
 " function.vimを開く
 nnoremap <silent> <Leader>fn :<C-u>tabedit $HOME/.vim/plugged/functions.vim/plugin/functions.vim<CR>
-if has('nvim')
-  if has('win32') || has('win64')
+if has('win32') || has('win64')
+  if has('nvim')
+    nnoremap <F5> :<C-u>source $HOME/_vimrc<CR> :source $HOME/_gvimrc<CR>
+    nnoremap <Leader>rc :<C-u>tabedit $HOME/_vimrc<CR>
+  else
     nnoremap <F5> :<C-u>source $HOME\Appdata\Local\nvim\init.vim<CR> :source $HOME\Appdata\Local\nvim\ginit.vim<CR>
     nnoremap <Leader>rc :<C-u>tabedit $HOME\Appdata\Local\nvim\init.vim<CR>
-  else
+  endif
+else
+  if has('nvim')
     " Shift + Insertでペイスト
     noremap! <S-Insert> <C-R>+
-    " 設定ファイルの再ロード
     nnoremap <F5> :<C-u>source $HOME/.config/nvim/init.vim<CR>
     nnoremap <Leader>rc :<C-u>tabedit $HOME/.config/nvim/init.vim<CR>
+  else
+    nnoremap <F5> :<C-u>source $HOME/.vimrc<CR>
+    nnoremap <Leader>rc :<C-u>tabedit $HOME/.vimrc<CR>
   endif
-elseif has('win32') || has('win64')
-  nnoremap <F5> :<C-u>source $HOME/_vimrc<CR> :source $HOME/_gvimrc<CR>
-  nnoremap <Leader>rc :<C-u>tabedit $HOME/_vimrc<CR>
 endif
 "--- <F6>  タイムスタンプを挿入してinsertモードへ移行 ----
 "nmap <F6> <ESC>i<C-R>=strftime("%Y-%m-%d (%a) %H:%M")<CR><CR>
@@ -203,14 +207,17 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'pbogut/fzf-mru.vim'
 Plug 'hrsh7th/vim-vsnip'
-Plug 'hrsh7th/vim-vsnip-integ'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'mattn/vim-lsp-settings'
+"Plug 'hrsh7th/vim-vsnip-integ'
+"Plug 'prabirshrestha/vim-lsp'
+"Plug 'mattn/vim-lsp-settings'
 Plug 'vim-scripts/BufOnly.vim'
 Plug 'vim-scripts/copypath.vim'
 Plug 'fuenor/qfixgrep'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'mrtazz/simplenote.vim'
+if !has('nvim')
+  Plug 'tenfyzhong/joplin.vim'
+endif
 Plug 'thinca/vim-qfreplace'
 Plug 'cocopon/vaffle.vim'
 Plug 'glidenote/memolist.vim'
@@ -234,9 +241,16 @@ Plug 'PProvost/vim-ps1'
 Plug 'tomasr/molokai'
 Plug 'icymind/NeoSolarized'
 Plug 'altercation/vim-colors-solarized'
+if has('gui_running')
+  let g:transparency_startup_enable = 1
+  let g:transparency_ctermbg_none   = 1
+  Plug 'tsuyoshicho/transparency.vim'
+  function! s:Transset(opacity)
+    call system('transset-df --id ' . v:windowid . ' ' . a:opacity)
+  endfunction
+endif
 " Initialize plugin system
 call plug#end()
-
 "vim-singleton
 if has('clientserver')
   call singleton#enable()
@@ -252,7 +266,7 @@ let g:fzf_command_prefix = 'Fzf'
 nnoremap <silent> [fzf]/ :<C-u>:FzfHistory/<CR>
 nnoremap <silent> [fzf]: :<C-u>:FzfHistory:<CR>
 nnoremap <silent> [fzf]b :<C-u>:FzfBuffers<CR>
-nnoremap <silent> [fzf]c :<C-u>:FzfColors<CR>
+nnoremap <silent> [fzf]c :<C-u>:FzfCommands<CR>
 nnoremap <silent> [fzf]f :<C-u>:FzfFiles<CR>
 nnoremap <silent> [fzf]g :<C-u>:FzfGFiles<CR>
 nnoremap <silent> [fzf]G :<C-u>:FzfGFiles?<CR>
@@ -394,6 +408,24 @@ nnoremap <silent> <Leader>sv :<C-u>SimplenoteVersion<CR>
 nnoremap <silent> <Leader>sn :<C-u>SimplenoteNew<CR>
 nnoremap <silent> <Leader>st :<C-u>SimplenoteTag<CR>
 nnoremap <silent> <Leader>sp :<C-u>SimplenotePin<CR>
+if !has('nvim')
+  let g:joplin_token = "a900a3c2316f2e1c50342553a89cdf265ffd85774589c01624ff601887fd48d1af44a6f6abeabeb44fd31ed807c262c60b79587b9bb2f01515a4833f030a8f95"
+  let g:joplin_default_note_book = "arimasou16"
+  " global command
+  nnoremap <silent> <Leader>j :<C-u>Joplin<CR> " Toggle tree.joplin window
+  nnoremap <silent> <Leader>jn :<C-u>JoplinSaveAsNote g:joplin_default_note_book<CR> " Save current buffer as a note. The title of the note is the buffer name.
+  nnoremap <silent> <Leader>jt :<C-u>JoplinSaveAsTodo g:joplin_default_note_book<CR> " Save current buffer as a todo. The title of the todo is the buffer name.
+  nnoremap <silent> <Leader>j/ :<C-u>JoplinSearch<CR> " Search keyword from joplin.app.
+  " command for note or todo
+  nnoremap <silent> <Leader>ji :<C-u>JoplinNoteInfo<CR> " Show note/todo infomation in popup window.
+  nnoremap <silent> <Leader>js :<C-u>JoplinNoteTypeSwitch<CR> " Switch between note and todo type.
+  nnoremap <silent> <Leader>jc :<C-u>JoplinTodoCompltedSwitch<CR> " Switch todo completed.
+  nnoremap <silent> <Leader>ja :<C-u>JoplinTagAdd<CR> " Add a tag to current note/todo.
+  nnoremap <silent> <Leader>jd :<C-u>JoplinTagDel<CR> " Delete a tag from note/todo.
+  nnoremap <silent> <Leader>ju :<C-u>JoplinResourceAttach<CR> " Upload a new resource and attach to current note/todo.
+  nnoremap <silent> <Leader>jr :<C-u>JoplinLinkResource<CR> " Link a resource to current note/todo.
+  nnoremap <silent> <Leader>jl :<C-u>JoplinLinkNode<CR> " Link a note/todo/notebook to current note/todo.
+endif
 " QuickFix
 " QuickFixウィンドウでもプレビューや絞り込みを有効化
 let QFixWin_EnableMode = 1
@@ -501,10 +533,19 @@ vmap <Leader>/ <Plug>(caw:zeropos:toggle)
 nmap gr <Plug>(Translate)
 vmap t <Plug>(VTranslate)
 " vim透明化
-if has('nvim')
+if !has('gui_running')
   " ターミナル設定で透過させる
   highlight Normal ctermbg=NONE guibg=NONE
   highlight NonText ctermbg=NONE guibg=NONE
   highlight SpecialKey ctermbg=NONE guibg=NONE
   highlight EndOfBuffer ctermbg=NONE guibg=NONE
+else
+  let g:transparency_config = {
+      \  'active'   : 90,
+      \  'inactive' : 70
+      \ }
+  command! -nargs=1 Transset call <SID>Transset(<q-args>)
+  nmap <F3> <Plug>(TransparencyOn)
+  nmap <F4> <Plug>(TransparencyOff)
+  nmap <F5> <Plug>(TransparencyToggle)
 endif

@@ -1,12 +1,10 @@
 "" $VIM直下のgvimrcを読み込まない
 let g:gvimrc_local_finish = 1
 "" vim透明化
-""set transparency=220
+" set transparency=220
 syntax on
 set background=dark
-if has('nvim')
-  colorscheme NeoSolarized
-elseif exists('#lightline') && (has('win32') || has('win64'))
+if exists('#lightline') && (has('win32') || has('win64'))
   " lightline.vim
   let g:lightline = {
         \ 'colorscheme': 'solarized',
@@ -18,6 +16,8 @@ elseif exists('#lightline') && (has('win32') || has('win64'))
   let g:battery#update_statusline = 1 " For statusline.
   colorscheme solarized
   call lightline#init()
+else
+  colorscheme NeoSolarized
 endif
 " autocmd を "gvimrc" という名前でグループ化
 augroup my_gvimrc
