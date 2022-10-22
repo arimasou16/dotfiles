@@ -32,7 +32,7 @@
     "description": "追記"
   },
   "LastMod": {
-    "prefix": ["last"],
+    "prefix": ["mod"],
     "body": [
       "lastmod: ${VIM:strftime(\"%Y-%m-%dT%H:%M:%S+09:00\")}"
     ],

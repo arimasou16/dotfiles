@@ -1,6 +1,6 @@
 
 shell:
-  program: /bin/bash
+  program: /bin/zsh
   args:
     - --login
 # テーマ
@@ -44,5 +44,5 @@ font:
 window:
   decorations: full       # ボーダーとタイトルバーを表示する
   startup_mode: Maximized # 最大画面で起動する
-background_opacity: 0.90  # 背景を透過させる
-east_asian_fullwidth: true
+  opacity: 0.80  # 背景を透過させる
+  east_asian_fullwidth: true
