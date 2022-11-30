@@ -14,7 +14,7 @@ if exists('#lightline') && (has('win32') || has('win64'))
         \ }
   " battery
   let g:battery#update_statusline = 1 " For statusline.
-  colorscheme solarized
+  colorscheme NeoSolarized
   call lightline#init()
 else
   colorscheme NeoSolarized
