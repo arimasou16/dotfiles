@@ -93,6 +93,8 @@ colors
 #-- Pass to the path --#
 typeset -U path PATH
 [[ -d ~/.bin ]] && export PATH="${HOME}/.bin:${PATH}"
+[[ -d ~/.local/bin ]] && export PATH="$HOME/.local/bin:$PATH"
+[[ -d ~/.zprofile ]] && source $HOME/.zprofile
 function powerline_precmd() {
     PS1="$($GOPATH/bin/powerline-go -error $? -jobs ${${(%):%j}:-0})"
 
@@ -119,5 +121,5 @@ fi
 
 # emacs keybind
 bindkey -e
-#export TERM=xterm
+export TERM=xterm
 
