@@ -15,7 +15,7 @@ if [ $? -eq 0 ]; then
 fi
 if [[ -f ~/.local/bin/kitty ]]; then
   export TERMINAL=$HOME/.local/bin/kitty
-  export GLFW_IM_MODULE=ibus
+  #export GLFW_IM_MODULE=ibus
 fi
 . "$HOME/.cargo/env"
 yaskkserv2 --google-cache-filename=/home/arimasou16/.config/fcitx5/skk/yaskkserv2.cache /home/arimasou16/.config/fcitx5/skk/dictionary.yaskkserv2
