@@ -162,7 +162,7 @@ bind gnp tabopen https://getpocket.com/a/
 bind gnq tabopen https://jp.quora.com/
 bind gnr tabopen https://www.rakuten.co.jp/
 bind gns tabopen https://app.simplenote.com/
-bind gnt tabopen https://github.com/tridactyl/tridactyl/blob/master/src/lib/config.ts
+bind gnt tabopen https://abema.tv/video/title/89-66
 bind gnu tabopen https://video.unext.jp/
 bind gnv tabopen https://www.amazon.co.jp/Prime-Video/b?node=3535604051
 bind gnx tabopen https://app.plex.tv/desktop
@@ -182,7 +182,7 @@ bind gop open https://getpocket.com/a/
 bind goq open https://jp.quora.com/
 bind gor open https://www.rakuten.co.jp/
 bind gos open https://app.simplenote.com/
-bind got open https://github.com/tridactyl/tridactyl/blob/master/src/lib/config.ts
+bind got open https://abema.tv/video/title/89-66
 bind gou open https://video.unext.jp/
 bind gov open https://www.amazon.co.jp/Prime-Video/b?node=3535604051
 bind gox open https://app.plex.tv/desktop
@@ -205,7 +205,7 @@ bind gwp winopen https://getpocket.com/a/
 bind gwq winopen https://jp.quora.com/
 bind gwr winopen https://www.rakuten.co.jp/
 bind gws winopen https://app.simplenote.com/
-bind gwt winopen https://github.com/tridactyl/tridactyl/
+bind gwt winopen https://abema.tv/video/title/89-66
 bind gwu winopen https://video.unext.jp/
 bind gwv winopen https://www.amazon.co.jp/Prime-Video/b?node=3535604051
 bind gwx winopen https://app.plex.tv/desktop
@@ -390,6 +390,7 @@ autocmd DocStart ^http(s?)://oyayubi-typing.solaniwa.net mode ignore
 autocmd DocStart ^http(s?)://tweetdeck.twitter.com mode ignore
 autocmd DocStart ^http(s?)://unityroom.com mode ignore
 autocmd DocStart ^http(s?)://www.e-typing.ne.jp mode ignore
+autocmd DocStart ^http(s?)://www.youtube.com mode ignore
 autocmd DocLoad ^https://github.com/tridactyl/tridactyl/issues/new$ issue
 autocmd TriStart .* source_quiet
 
