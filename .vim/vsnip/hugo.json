@@ -41,7 +41,7 @@
   "Twitter": {
     "prefix": ["twitter"],
     "body": [
-      "{{< tweet ${CLIPBOARD} >}}:"
+      "{{< tweet user=\"SanDiegoZoo\" id=\"${CLIPBOARD}\" >}}"
     ],
     "description": "Twitterタグ埋め込み"
   },

@@ -15,7 +15,7 @@ set searchurls.wikipedia https://ja.wikipedia.org/wiki/Special:Search/
 set searchurls.yahoo https://search.yahoo.com/search?p=
 set searchurls.youtube https://www.youtube.com/results?search_query=
 set profiledir C:\Users\yoyuu\AppData\Roaming\Mozilla\Firefox\Profiles\i6ehmx3i.default-release
-set hintfiltermode vimperator-reflow
+set hintfiltermode simple
 set hintnames short
 set hintchars hjklasdfgyuiopqwertnmzxcvb
 set hintdelay 100
@@ -24,7 +24,7 @@ set allowautofocus false
 set followpagepatterns.next ^(次へ|進む|もっと見る|もっとみる|次のページ|続き|next|newer|more|(>|→|»|≫|>>)\b)
 set followpagepatterns.prev ^(前へ|戻る|前のページ|prev(ious)?|older|back|(<|←|«|≪|<<|«|<<)\b)
 js tri.browserBg.runtime.getPlatformInfo().then(os=>{const editorcmd = os.os=="linux" ? "kitty nvim" : "gvim -u NONE -c \":e ++enc=utf8\""; tri.config.set("editorcmd", editorcmd)})
-set newtab moz-extension://5cbacd8e-d03d-4c34-9ff2-360b3034304e/newtab.html
+set newtab moz-extension://3a7cfd6e-5b0d-434e-897d-c45faf6d4432/newtab.html
 colourscheme dark
 set autocontainmode strict
 set auconcreatecontainer false
@@ -242,9 +242,6 @@ bind zm zoom 0.5 true
 bind zo zoom -0.1 true
 bind zr zoom -0.5 true
 bind zz zoom 1
-bind <AS-ArrowUp><AS-ArrowUp><AS-ArrowDown><AS-ArrowDown><AS-ArrowLeft><AS-ArrowRight><AS-ArrowLeft><AS-ArrowRight>ba open https://www.youtube.com/watch?v=M3iOROuTuMA
-bind gnu tabopen https://video.unext.jp/
-bind gou open https://video.unext.jp/
 bind --mode=visual 0 js document.getSelection().modify("extend","backward","lineboundary")
 bind --mode=visual t composite js document.getSelection().toString() | fillcmdline tabopen
 bind --mode=visual <Escape> composite js document.getSelection().empty(); mode normal; hidecmdline
@@ -390,7 +387,6 @@ autocmd DocStart ^http(s?)://oyayubi-typing.solaniwa.net mode ignore
 autocmd DocStart ^http(s?)://tweetdeck.twitter.com mode ignore
 autocmd DocStart ^http(s?)://unityroom.com mode ignore
 autocmd DocStart ^http(s?)://www.e-typing.ne.jp mode ignore
-autocmd DocStart ^http(s?)://www.youtube.com mode ignore
 autocmd DocLoad ^https://github.com/tridactyl/tridactyl/issues/new$ issue
 autocmd TriStart .* source_quiet
 

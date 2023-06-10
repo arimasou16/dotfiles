@@ -191,12 +191,9 @@ else
     nnoremap <Leader>rc :<C-u>tabedit $HOME/.vimrc<CR>
   endif
 endif
-"--- <F6>  タイムスタンプを挿入してinsertモードへ移行 ----
-"nmap <F6> <ESC>i<C-R>=strftime("%Y-%m-%d (%a) %H:%M")<CR><CR>
+" タイムスタンプ挿入
 imap date<Tab> <C-R>=strftime("%Y-%m-%d")<CR>
-"nmap date<Tab> <ESC>i<C-R>=strftime("%Y-%m-%d")<CR>
 imap time<Tab> <C-R>=strftime("%Y-%m-%dT%H:%M:%S+09:00")<CR>
-"nmap time<Tab> <ESC>i<C-R>=strftime("%Y-%m-%dT%H:%M:%S+09:00")<CR>
 " Specify a directory for plugins
 call plug#begin('~/.vim/plugged')
 Plug 'vim-jp/vimdoc-ja'
@@ -207,14 +204,11 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'pbogut/fzf-mru.vim'
 Plug 'hrsh7th/vim-vsnip'
-"Plug 'hrsh7th/vim-vsnip-integ'
-"Plug 'prabirshrestha/vim-lsp'
-"Plug 'mattn/vim-lsp-settings'
 Plug 'vim-scripts/BufOnly.vim'
 Plug 'vim-scripts/copypath.vim'
 Plug 'fuenor/qfixgrep'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-Plug 'mrtazz/simplenote.vim'
+Plug 'tyru/open-browser.vim'
 if !has('nvim')
   Plug 'tenfyzhong/joplin.vim'
 endif
@@ -227,7 +221,7 @@ Plug 'thinca/vim-quickrun'
 Plug 't9md/vim-quickhl'
 Plug 'tyru/caw.vim'
 Plug 'jamessan/vim-gnupg'
-Plug 'skanehira/translate.vim'
+Plug 'skanehira/denops-translate.vim'
 Plug 'vim-denops/denops.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'arimasou16/functions.vim'
@@ -394,39 +388,6 @@ if has('win32') || has('win64')
 else
   let g:python3_host_prog ='/usr/bin/python3'
 endif
-if filereadable(expand('~/.simplenoterc'))
-  source ~/.simplenoterc
-endif
-" simplenote
-let g:SimplenoteSingleWindow = 1
-let g:SimplenoteSortOrder = "pinned, modifydate, tags"
-let g:SimplenoteFiletype = "markdown"
-nnoremap <silent> <Leader>sl :<C-u>SimplenoteList<CR>
-nnoremap <silent> <Leader>su :<C-u>SimplenoteUpdate<CR>
-nnoremap <silent> <Leader>si :<C-u>SimplenoteVersionInfo<CR>
-nnoremap <silent> <Leader>sv :<C-u>SimplenoteVersion<CR>
-nnoremap <silent> <Leader>sn :<C-u>SimplenoteNew<CR>
-nnoremap <silent> <Leader>st :<C-u>SimplenoteTag<CR>
-nnoremap <silent> <Leader>sp :<C-u>SimplenotePin<CR>
-if !has('nvim')
-  let g:joplin_token = "a900a3c2316f2e1c50342553a89cdf265ffd85774589c01624ff601887fd48d1af44a6f6abeabeb44fd31ed807c262c60b79587b9bb2f01515a4833f030a8f95"
-  let g:joplin_default_note_book = "arimasou16"
-  " global command
-  nnoremap <silent> <Leader>j :<C-u>Joplin<CR> " Toggle tree.joplin window
-  nnoremap <silent> <Leader>jn :<C-u>JoplinSaveAsNote g:joplin_default_note_book<CR> " Save current buffer as a note. The title of the note is the buffer name.
-  nnoremap <silent> <Leader>jt :<C-u>JoplinSaveAsTodo g:joplin_default_note_book<CR> " Save current buffer as a todo. The title of the todo is the buffer name.
-  nnoremap <silent> <Leader>j/ :<C-u>JoplinSearch<CR> " Search keyword from joplin.app.
-  " command for note or todo
-  nnoremap <silent> <Leader>ji :<C-u>JoplinNoteInfo<CR> " Show note/todo infomation in popup window.
-  nnoremap <silent> <Leader>js :<C-u>JoplinNoteTypeSwitch<CR> " Switch between note and todo type.
-  nnoremap <silent> <Leader>jc :<C-u>JoplinTodoCompltedSwitch<CR> " Switch todo completed.
-  nnoremap <silent> <Leader>ja :<C-u>JoplinTagAdd<CR> " Add a tag to current note/todo.
-  nnoremap <silent> <Leader>jd :<C-u>JoplinTagDel<CR> " Delete a tag from note/todo.
-  nnoremap <silent> <Leader>ju :<C-u>JoplinResourceAttach<CR> " Upload a new resource and attach to current note/todo.
-  nnoremap <silent> <Leader>jr :<C-u>JoplinLinkResource<CR> " Link a resource to current note/todo.
-  nnoremap <silent> <Leader>jl :<C-u>JoplinLinkNode<CR> " Link a note/todo/notebook to current note/todo.
-endif
-" QuickFix
 " QuickFixウィンドウでもプレビューや絞り込みを有効化
 let QFixWin_EnableMode = 1
 " QFixHowm/QFixGrepの結果表示にロケーションリストを使用する/しない
@@ -539,13 +500,4 @@ if !has('gui_running')
   highlight NonText ctermbg=NONE guibg=NONE
   highlight SpecialKey ctermbg=NONE guibg=NONE
   highlight EndOfBuffer ctermbg=NONE guibg=NONE
-else
-  let g:transparency_config = {
-      \  'active'   : 90,
-      \  'inactive' : 70
-      \ }
-  command! -nargs=1 Transset call <SID>Transset(<q-args>)
-  nmap <F3> <Plug>(TransparencyOn)
-  nmap <F4> <Plug>(TransparencyOff)
-  nmap <F5> <Plug>(TransparencyToggle)
 endif
