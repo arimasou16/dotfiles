@@ -7,6 +7,7 @@ set searchurls.github https://github.com/search?utf8=✓&q=
 set searchurls.google https://www.google.com/search?q=
 set searchurls.hmv https://www.hmv.co.jp/search/searchresults/?category=KEYWORD&keyword=
 set searchurls.mdn https://developer.mozilla.org/ja/search?q=
+set searchurls.ototoy https://ototoy.jp/find/?q=
 set searchurls.mora https://mora.jp/search/top?keyWord=
 set searchurls.quora https://jp.quora.com/search?q=
 set searchurls.raku https://search.rakuten.co.jp/search/mall/%s/?f=1&grp=product
@@ -24,7 +25,7 @@ set allowautofocus false
 set followpagepatterns.next ^(次へ|進む|もっと見る|もっとみる|次のページ|続き|next|newer|more|(>|→|»|≫|>>)\b)
 set followpagepatterns.prev ^(前へ|戻る|前のページ|prev(ious)?|older|back|(<|←|«|≪|<<|«|<<)\b)
 js tri.browserBg.runtime.getPlatformInfo().then(os=>{const editorcmd = os.os=="linux" ? "kitty nvim" : "gvim -u NONE -c \":e ++enc=utf8\""; tri.config.set("editorcmd", editorcmd)})
-set newtab moz-extension://3a7cfd6e-5b0d-434e-897d-c45faf6d4432/newtab.html
+set newtab moz-extension://3a7cfd6e-5b0d-434e-897d-c45faf6d4432/override.html#/
 colourscheme dark
 set autocontainmode strict
 set auconcreatecontainer false
@@ -149,7 +150,7 @@ bind gg scrollto 0
 bind gh home
 bind gi focusinput -l
 bind gna tabopen https://www.amazon.co.jp/
-bind gnc tabopen https://console.aws.amazon.com/
+bind gnc tabopen https://chat.openai.com/chat
 bind gnd tabopen http://www.dmm.com/
 bind gnf tabopen https://feedly.com/i/latest
 bind gng tabopen https://douga.geo-online.co.jp/
@@ -162,6 +163,7 @@ bind gnp tabopen https://getpocket.com/a/
 bind gnq tabopen https://jp.quora.com/
 bind gnr tabopen https://www.rakuten.co.jp/
 bind gns tabopen https://app.simplenote.com/
+bind gnu tabopen https://video.unext.jp/
 bind gnt tabopen https://abema.tv/video/title/89-66
 bind gnu tabopen https://video.unext.jp/
 bind gnv tabopen https://www.amazon.co.jp/Prime-Video/b?node=3535604051
@@ -169,7 +171,7 @@ bind gnx tabopen https://app.plex.tv/desktop
 bind gny tabopen https://www.youtube.com/?gl=JP
 bind gnz tabopen https://us02web.zoom.us/signin
 bind goa open https://www.amazon.co.jp/
-bind goc open https://console.aws.amazon.com/
+bind goc open https://chat.openai.com/chat
 bind god open http://www.dmm.com/
 bind gof open https://feedly.com/i/latest
 bind gog open https://douga.geo-online.co.jp/
@@ -192,7 +194,7 @@ bind gr reader
 bind gt tabnext_gt
 bind gu urlparent
 bind gwa winopen https://www.amazon.co.jp/
-bind gwc winopen https://console.aws.amazon.com/
+bind gwc winopen https://chat.openai.com/chat
 bind gwd winopen http://www.dmm.com/
 bind gwf winopen https://feedly.com/i/latest
 bind gwg winopen https://douga.geo-online.co.jp/
@@ -242,6 +244,13 @@ bind zm zoom 0.5 true
 bind zo zoom -0.1 true
 bind zr zoom -0.5 true
 bind zz zoom 1
+
+bind / fillcmdline find
+bind ? fillcmdline find -?
+bind n findnext 1
+bind N findnext -? 1
+bind ,<Space> nohlsearch
+
 bind --mode=visual 0 js document.getSelection().modify("extend","backward","lineboundary")
 bind --mode=visual t composite js document.getSelection().toString() | fillcmdline tabopen
 bind --mode=visual <Escape> composite js document.getSelection().empty(); mode normal; hidecmdline
@@ -387,6 +396,7 @@ autocmd DocStart ^http(s?)://oyayubi-typing.solaniwa.net mode ignore
 autocmd DocStart ^http(s?)://tweetdeck.twitter.com mode ignore
 autocmd DocStart ^http(s?)://unityroom.com mode ignore
 autocmd DocStart ^http(s?)://www.e-typing.ne.jp mode ignore
+autocmd DocStart ^http(s?)://sushida.net/ mode ignore
 autocmd DocLoad ^https://github.com/tridactyl/tridactyl/issues/new$ issue
 autocmd TriStart .* source_quiet
 
