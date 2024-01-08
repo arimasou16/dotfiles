@@ -197,33 +197,28 @@ imap time<Tab> <C-R>=strftime("%Y-%m-%dT%H:%M:%S+09:00")<CR>
 " Specify a directory for plugins
 call plug#begin('~/.vim/plugged')
 Plug 'vim-jp/vimdoc-ja'
+Plug 'vim-denops/denops.vim'
 Plug 'vim-skk/skkeleton'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'junegunn/vim-easy-align'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'pbogut/fzf-mru.vim'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'vim-scripts/BufOnly.vim'
 Plug 'vim-scripts/copypath.vim'
 Plug 'fuenor/qfixgrep'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'tyru/open-browser.vim'
-if !has('nvim')
-  Plug 'tenfyzhong/joplin.vim'
-endif
 Plug 'thinca/vim-qfreplace'
 Plug 'cocopon/vaffle.vim'
 Plug 'glidenote/memolist.vim'
-Plug 'dbeniamine/todo.txt-vim'
 Plug 'itchyny/lightline.vim'
 Plug 'thinca/vim-quickrun'
 Plug 't9md/vim-quickhl'
 Plug 'tyru/caw.vim'
-Plug 'jamessan/vim-gnupg'
-Plug 'skanehira/denops-translate.vim'
-Plug 'vim-denops/denops.vim'
+Plug 'yukimemi/dps-hitori'
 Plug 'tpope/vim-fugitive'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'mattn/vim-fz'
+Plug 'mattn/ctrlp-matchfuzzy'
 Plug 'arimasou16/functions.vim'
 if !has('nvim')
   Plug 'thinca/vim-singleton'
@@ -235,100 +230,18 @@ Plug 'PProvost/vim-ps1'
 Plug 'tomasr/molokai'
 Plug 'icymind/NeoSolarized'
 Plug 'altercation/vim-colors-solarized'
-if has('gui_running')
-  let g:transparency_startup_enable = 1
-  let g:transparency_ctermbg_none   = 1
-  Plug 'tsuyoshicho/transparency.vim'
-  function! s:Transset(opacity)
-    call system('transset-df --id ' . v:windowid . ' ' . a:opacity)
-  endfunction
-endif
+Plug 'jdkanani/vim-material-theme'
+Plug 'raphamorim/lucario'
+Plug 'gosukiwi/vim-atom-dark'
+Plug 'jonathanfilip/vim-lucius'
+Plug 'jacoborus/tender.vim'
 " Initialize plugin system
 call plug#end()
-"vim-singleton
-if has('clientserver')
-  call singleton#enable()
-endif
 if has('win32') || has('win64')
   set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
 else
   set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 endif
-" fzf
-nmap <C-f> [fzf]
-let g:fzf_command_prefix = 'Fzf'
-nnoremap <silent> [fzf]/ :<C-u>:FzfHistory/<CR>
-nnoremap <silent> [fzf]: :<C-u>:FzfHistory:<CR>
-nnoremap <silent> [fzf]b :<C-u>:FzfBuffers<CR>
-nnoremap <silent> [fzf]c :<C-u>:FzfCommands<CR>
-nnoremap <silent> [fzf]f :<C-u>:FzfFiles<CR>
-nnoremap <silent> [fzf]g :<C-u>:FzfGFiles<CR>
-nnoremap <silent> [fzf]G :<C-u>:FzfGFiles?<CR>
-nnoremap <silent> [fzf]h :<C-u>:FzfHistory<CR>
-nnoremap <silent> [fzf]l :<C-u>:FzfLines<CR>
-nnoremap <silent> [fzf]L :<C-u>:FzfBLines<CR>
-nnoremap <silent> [fzf]m :<C-u>:FzfMarks<CR>
-nnoremap <silent> [fzf]M :<C-u>:FzfMaps<CR>
-nnoremap <silent> [fzf]p :<C-u>:FZFMru<CR>
-nnoremap <silent> [fzf]r :<C-u>:FzfRg<CR>
-nnoremap <silent> [fzf]t :<C-u>:FzfTags<CR>
-nnoremap <silent> [fzf]T :<C-u>:FzfBTags<CR>
-nnoremap <silent> [fzf]w :<C-u>:FzfWindows<CR>
-let g:fzf_preview_window = ['up:40%:hidden', 'ctrl-/']
-" [Buffers] Jump to the existing window if possible
-let g:fzf_buffers_jump = 1
-" [Commands] --expect expression for directly executing the command
-let g:fzf_commands_expect = 'alt-enter,ctrl-x'
-" Mapping selecting mappings
-nmap <leader><tab> <plug>(fzf-maps-n)
-xmap <leader><tab> <plug>(fzf-maps-x)
-omap <leader><tab> <plug>(fzf-maps-o)
-" Insert mode completion
-imap <c-x><c-w> <plug>(fzf-complete-word)
-imap <c-x><c-p> <plug>(fzf-complete-path)
-imap <c-x><c-j> <plug>(fzf-complete-buffer-line)
-imap <c-x><c-l> <plug>(fzf-complete-line)
-function! s:processLine(line)
-  execute 'lcd' a:line
-  " execute ':Files'
-endfunction
-function! s:change_dir(dir)
-  if has('win32') || has('win64')
-    let source = 'dir /b /s /ad'
-  else
-    let source = 'find -type d -not \( -name .git -prune \)'
-  endif
-  call fzf#run({
-    \ 'dir': a:dir,
-    \ 'source': source,
-    \ 'sink': {line -> s:processLine(line)}
-    \ })
-endfunction
-nnoremap <silent> [fzf]d :call <SID>change_dir('.')<CR>
-nnoremap <silent> [fzf]D :call <SID>change_dir('~/')<CR>
-if has('win32') || has('win64')
-  nnoremap <silent> [fzf]n :call <SID>change_dir('E:\Nextcloud')<CR>
-else
-  nnoremap <silent> [fzf]n :call <SID>change_dir('~/Nextcloud')<CR>
-endif
-function! s:copy_results(lines)
-  let joined_lines = join(a:lines, "\n")
-  if len(a:lines) > 1
-    let joined_lines .= "\n"
-  endif
-  let @+ = joined_lines
-endfunction
-let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit',
-  \ 'ctrl-y': ':r !echo',
-  \ 'ctrl-o': function('s:copy_results'),
-  \ }
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview(), <bang>0)
 if executable('rg')
   set grepprg=rg\ --vimgrep\ --no-heading
 endif
@@ -347,7 +260,7 @@ else
   \})
   if executable('fcitx')
     call skkeleton#config({
-      \'userJisyo':"~/.config/fcitx/skk/user.dict",
+      \'userJisyo':"~/.config/fcitx/skk/user.dict.utf8",
     \})
     call system('fcitx-remote -c')
   elseif executable('fcitx5')
@@ -436,49 +349,30 @@ let g:easy_align_delimiters = {
 \ "-": { 'filter': 'v/^\s*--/', 'pattern': '[-]\{2,\}', 'left_margin': 1, 'right_margin': 1, 'ignore_groups': ['String']},
 \ '\': { 'pattern': '\s\{2,\}' },
 \ }
-" todo.txt
-let g:maplocalleader = "\<Space>"
-" Windowsでは"Google ドライブ"というフォルダ名だと起動時にはSJISで読み込もうとして正しく判定できないのでフォルダ名を英字にして設定すること
-if isdirectory(expand('~/Dropbox/Tasks/'))
-  let g:doneTaskFile = expand('~/Dropbox/Tasks/done.txt')
-  let g:todoTaskFile = expand('~/Dropbox/Tasks/todo.txt')
-endif
-" autocmd を "todo" という名前でグループ化
-augroup todo
-  " Use todo#Complete as the omni complete function for todo files
-  au filetype todo setlocal omnifunc=todo#Complete
-  " Auto complete projects
-  au filetype todo imap <buffer> + +<C-X><C-O>
-  " Auto complete contexts
-  au filetype todo imap <buffer> @ @<C-X><C-O>
-augroup END
-nnoremap <silent> <LocalLeader>to :<C-u>Todo<CR>
-nnoremap <silent> <LocalLeader>do :<C-u>Done<CR>
 " function
 if has('win32') || has('win64')
   let g:hugo_directory = 'E:\Nextcloud\hugo-site'
 else
   let g:hugo_directory = '~/Nextcloud/hugo-site'
 endif
-if has('nvim')
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1 " forces true color
-  let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1 " Changes cursor to a line on insert mode
-  set termguicolors
-endif
 " markdown-preview
 nnoremap <silent> <Leader>mp :<C-u>MarkdownPreview<CR>
 " lightline.vim
 if !has('gui_running')
-  set t_Co=256
+  "set t_Co=256
   let g:lightline = {
         \ 'colorscheme': 'solarized',
         \ }
-  " battery
-  let g:battery#update_statusline = 1 " For statusline.
   syntax on
-  set background=dark
+  "set background=dark
   if has('nvim')
-    colorscheme NeoSolarized
+    "colorscheme NeoSolarized
+    "colorscheme lucius
+    "colorscheme atom-dark
+    "colorscheme lucario
+    "colorscheme material-theme
+    colorscheme tender
+    hi Comment ctermfg=lightgrey
   elseif exists('#lightline') && (has('win32') || has('win64'))
     let g:solarized_termcolors=256
     colorscheme solarized
@@ -490,9 +384,34 @@ endif
 " 行頭にコメントをトグル
 nmap <Leader>/ <Plug>(caw:zeropos:toggle)
 vmap <Leader>/ <Plug>(caw:zeropos:toggle)
-" translate.vim
-nmap gr <Plug>(Translate)
-vmap t <Plug>(VTranslate)
+"ctrlp
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_switch_buffer = 'et'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/](\.(git|hg|svn)|go|aws)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'link': 'some_bad_symbolic_links',
+  \ }
+"vim-fz
+command! FzColors call fz#run({
+    \ 'type': 'list',
+    \ 'list': uniq(map(split(globpath(&rtp, "colors/*.vim"), "\n"), "substitute(fnamemodify(v:val, ':t'), '\\..\\{-}$', '', '')")),
+    \ 'accept': {result->execute('colorscheme ' . result['items'][0])},
+    \ })
+"ctrlp-matchfuzzy
+let g:ctrlp_match_func = {'match': 'ctrlp_matchfuzzy#matcher'}
+" dps-hitori
+"g:hitori_debug = false
+"g:hitori_opener = 'tab drop'
+"" 既に起動中の Neovim にパスを送信した後に Neovim を終了するかどうか
+"g:hitori_quit = true
+"" Websocket サーバの port
+"g:hitori_port = 7070
+"" 除外するファイルパターン。デフォルトは [] です。
+"g:hitori_ignore_patterns = { "\\.tmp$", "\\.diff$", "(COMMIT_EDIT|TAG_EDIT|MERGE_|SQUASH_)MSG$" }
+"g:hitori_wsl = v:false
 " vim透明化
 if !has('gui_running')
   " ターミナル設定で透過させる

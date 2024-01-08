@@ -7,6 +7,7 @@
 [[ -d ~/go ]] && export GOPATH=$HOME/go
 [[ -v GOPATH ]] && export PATH="$GOPATH/bin:$PATH"
 [[ -d /usr/local/nvim-linux64/bin ]] && export PATH="/usr/local/nvim-linux64/bin:$PATH"
+[[ -d ~/Android/Sdk/platform-tools/ ]] && export PATH="/home/arimasou16/Android/Sdk/platform-tools:$PATH"
 which nvim >/dev/null 2>&1
 if [ $? -eq 0 ]; then
   export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
@@ -18,4 +19,6 @@ if [[ -f ~/.local/bin/kitty ]]; then
   #export GLFW_IM_MODULE=ibus
 fi
 . "$HOME/.cargo/env"
-yaskkserv2 --google-cache-filename=/home/arimasou16/.config/fcitx5/skk/yaskkserv2.cache /home/arimasou16/.config/fcitx5/skk/dictionary.yaskkserv2
+yaskkserv2_make_dictionary --dictionary-filename=$HOME/.config/ibus-skk/dictionary.yaskkserv2 /usr/share/skk/SKK-JISYO.L $HOME/.config/ibus-skk/user.dict
+yaskkserv2 --google-cache-filename=$HOME/.config/ibus-skk/yaskkserv2.cache $HOME/.config/ibus-skk/dictionary.yaskkserv2
+[[ -f ~/.deno/bin/hitori ]] && alias nvim='hitori'
