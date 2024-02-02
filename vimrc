@@ -251,26 +251,20 @@ imap <C-j> <Plug>(skkeleton-toggle)
 cmap <C-j> <Plug>(skkeleton-toggle)
 if has('win32') || has('win64')
   call skkeleton#config({
-    \'globalJisyo':"~/Appdata/Roaming/SKKFEP/DICTS/SKK-JISYO.L",
-    \'userJisyo':"~/.skkeleton",
+    \'globalDictionaries':["~/Appdata/Roaming/SKKFEP/DICTS/SKK-JISYO.L"],
+    \'userDictionary':"~/.skkeleton",
   \})
 else
-  call skkeleton#config({
-    \'globalJisyo':"/usr/share/skk/SKK-JISYO.L",
-  \})
-  if executable('fcitx')
+  if executable('fcitx5')
     call skkeleton#config({
-      \'userJisyo':"~/.config/fcitx/skk/user.dict.utf8",
-    \})
-    call system('fcitx-remote -c')
-  elseif executable('fcitx5')
-    call skkeleton#config({
-      \'userJisyo':"~/.config/fcitx5/skk/user.dict",
+      \'globalDictionaries':["/usr/share/skk/SKK-JISYO.L","~/.config/fcitx5/skk/user.dict.utf8"],
+      \'userDictionary':"~/.config/fcitx5/skk/user.dict.skkeleton",
     \})
     call system('fcitx5-remote -c')
   elseif executable('ibus')
     call skkeleton#config({
-      \'userJisyo':"~/.config/ibus-skk/user.dict",
+      \'globalDictionaries':["/usr/share/skk/SKK-JISYO.L","~/.config/ibus-skk/user.dict.utf8"],
+      \'userDictionary':"~/.config/ibus-skk/user.dict.skkeleton",
     \})
     call system('ibus engine "xkb:us::eng"')
   endif
@@ -278,7 +272,7 @@ endif
 call skkeleton#config({
   \'eggLikeNewline':v:true,
   \'keepState':v:true,
-  \'useSkkServer':v:true,
+  \'sources':["skk_dictionary", "skk_server"],
   \'skkServerHost':"127.0.0.1",
   \'skkServerPort':1178,
   \'skkServerResEnc':"euc-jp",
