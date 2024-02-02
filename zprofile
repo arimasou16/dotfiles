@@ -21,4 +21,5 @@ fi
 . "$HOME/.cargo/env"
 yaskkserv2_make_dictionary --dictionary-filename=$HOME/.config/ibus-skk/dictionary.yaskkserv2 /usr/share/skk/SKK-JISYO.L $HOME/.config/ibus-skk/user.dict
 yaskkserv2 --google-cache-filename=$HOME/.config/ibus-skk/yaskkserv2.cache $HOME/.config/ibus-skk/dictionary.yaskkserv2
-[[ -f ~/.deno/bin/hitori ]] && alias nvim='hitori'
+[[ -d ~/Nextcloud/Public_Ubuntu/sh ]] && export PATH="$HOME/Nextcloud/Public_Ubuntu/sh:${PATH}"
+[[ -f /usr/libexec/ibus-dconf ]] && ibus-daemon --config=/usr/libexec/ibus-dconf -drx
