@@ -101,22 +101,15 @@ end
 set display+=lastline
 " ファイル自動読み込み
 set autoread
+" カレントディレクトリを自動で変更する
+set autochdir
 " 保存されていないファイルがあるときでも別のファイルを開くことが出来る
 set hidden
 " ヘルプは日本語優先
 set helplang=ja,en
 " ファイルと同じディレクトリ移動
-function! s:setcwd()
-  let cph = expand('%:p:h', 1)
-  if cph =~ '^.\+://' | retu | en
-  for mkr in ['.git/', '.hg/', '.svn/', '.bzr/', '_darcs/', '.vimprojects']
-    let wd = call('find'.(mkr =~ '/$' ? 'dir' : 'file'), [mkr, cph.';'])
-    if wd != '' | let &acd = 0 | brea | en
-  endfo
-  exe 'lc!' fnameescape(wd == '' ? cph : substitute(wd, mkr.'$', '.', ''))
-endfunction
 " ファイルタイプが未設定ならデフォルトのファイルタイプを設定する
-function! s:NoneFileTypeSetMarkdown()
+function! s:setFileTypeMarkdown()
   if len(&filetype) == 0
     set filetype=markdown
   endif
@@ -128,18 +121,26 @@ imap hex<Tab> <ESC>i<C-R>=printf('%x',matchstr(reltimestr(reltime()), '\v\.@<=\d
 augroup my_vimrc
   " グループ内の autocmd をリセットする
   autocmd!
-  " 開いたファイルのカレントディレクトリに移動
-  autocmd BufEnter * call s:setcwd()
   " 新しいバッファの編集を始めたときのファイルタイプを設定する
-  autocmd BufEnter * call s:NoneFileTypeSetMarkdown()
+  "autocmd BufEnter * call s:setFileTypeMarkdown()
+  autocmd BufNewFile * set filetype=markdown
   " 自動的にquickfix-windowを開く
   autocmd QuickFixCmdPost *grep* cwindow
   "挿入モードを抜けるとき、set nopaste を実行する。
   autocmd InsertLeave * set nopaste
   autocmd BufNewFile,BufRead *.sql,*.bat,*.vim,*vimrc,*.js,*.gs setlocal tabstop=2 softtabstop=2 shiftwidth=2
-  " *.mdファイル自動保存
-  "autocmd TextChanged,TextChangedI *.md silent write
+  "autocmd VimLeavePre,BufWritePost,ExitPreExitPre,BufDelete *.md call s:syncJoplin()
+  if executable('joplin')
+    autocmd FileChangedShell *.md call s:syncJoplin()
+  endif
 augroup END
+" joplin同期処理
+function! s:syncJoplin()
+  let l:cwd = expand('%:p:h')
+  if (l:cwd == expand('~/.config/joplin/tmp'))
+    execute ':!joplin sync'
+  endif
+endfunction
 """"""""""""""""""""""""""""""
 "キーマップ
 """"""""""""""""""""""""""""""
@@ -197,8 +198,11 @@ imap time<Tab> <C-R>=strftime("%Y-%m-%dT%H:%M:%S+09:00")<CR>
 " Specify a directory for plugins
 call plug#begin('~/.vim/plugged')
 Plug 'vim-jp/vimdoc-ja'
-Plug 'vim-denops/denops.vim'
-Plug 'vim-skk/skkeleton'
+if executable('deno')
+  Plug 'vim-denops/denops.vim'
+  Plug 'vim-skk/skkeleton'
+  "Plug 'yukimemi/dps-hitori'
+endif
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'junegunn/vim-easy-align'
 Plug 'hrsh7th/vim-vsnip'
@@ -214,7 +218,6 @@ Plug 'itchyny/lightline.vim'
 Plug 'thinca/vim-quickrun'
 Plug 't9md/vim-quickhl'
 Plug 'tyru/caw.vim'
-Plug 'yukimemi/dps-hitori'
 Plug 'tpope/vim-fugitive'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mattn/vim-fz'
@@ -247,37 +250,39 @@ if executable('rg')
 endif
 " skkeleton
 " skkeletonの有効、無効を切り替え
-imap <C-j> <Plug>(skkeleton-toggle)
-cmap <C-j> <Plug>(skkeleton-toggle)
-if has('win32') || has('win64')
-  call skkeleton#config({
-    \'globalDictionaries':["~/Appdata/Roaming/SKKFEP/DICTS/SKK-JISYO.L"],
-    \'userDictionary':"~/.skkeleton",
-  \})
-else
-  if executable('fcitx5')
+if executable('deno')
+  imap <C-j> <Plug>(skkeleton-toggle)
+  cmap <C-j> <Plug>(skkeleton-toggle)
+  if has('win32') || has('win64')
     call skkeleton#config({
-      \'globalDictionaries':["/usr/share/skk/SKK-JISYO.L","~/.config/fcitx5/skk/user.dict.utf8"],
-      \'userDictionary':"~/.config/fcitx5/skk/user.dict.skkeleton",
+      \'globalDictionaries':["~/Appdata/Roaming/SKKFEP/DICTS/SKK-JISYO.L"],
+      \'userDictionary':"~/.skkeleton",
     \})
-    call system('fcitx5-remote -c')
-  elseif executable('ibus')
-    call skkeleton#config({
-      \'globalDictionaries':["/usr/share/skk/SKK-JISYO.L","~/.config/ibus-skk/user.dict.utf8"],
-      \'userDictionary':"~/.config/ibus-skk/user.dict.skkeleton",
-    \})
-    call system('ibus engine "xkb:us::eng"')
+  else
+    if executable('fcitx5')
+      call skkeleton#config({
+        \'globalDictionaries':["/usr/share/skk/SKK-JISYO.L","~/.config/fcitx5/skk/user.dict.utf8"],
+        \'userDictionary':"~/.config/fcitx5/skk/user.dict.skkeleton",
+      \})
+      call system('fcitx5-remote -c')
+    elseif executable('ibus')
+      call skkeleton#config({
+        \'globalDictionaries':["/usr/share/skk/SKK-JISYO.L","~/.config/ibus-skk/user.dict.utf8"],
+        \'userDictionary':"~/.config/ibus-skk/user.dict.skkeleton",
+      \})
+      call system('ibus engine "xkb:us::eng"')
+    endif
   endif
+  call skkeleton#config({
+    \'eggLikeNewline':v:true,
+    \'keepState':v:true,
+    \'sources':["skk_dictionary", "skk_server"],
+    \'skkServerHost':"127.0.0.1",
+    \'skkServerPort':1178,
+    \'skkServerResEnc':"euc-jp",
+    \'skkServerReqEnc':"euc-jp",
+  \})
 endif
-call skkeleton#config({
-  \'eggLikeNewline':v:true,
-  \'keepState':v:true,
-  \'sources':["skk_dictionary", "skk_server"],
-  \'skkServerHost':"127.0.0.1",
-  \'skkServerPort':1178,
-  \'skkServerResEnc':"euc-jp",
-  \'skkServerReqEnc':"euc-jp",
-\})
 set iminsert=0
 set imsearch=0
 set imdisable
@@ -380,7 +385,7 @@ nmap <Leader>/ <Plug>(caw:zeropos:toggle)
 vmap <Leader>/ <Plug>(caw:zeropos:toggle)
 "ctrlp
 let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_cmd = ':CtrlPMRU'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_switch_buffer = 'et'
 let g:ctrlp_custom_ignore = {
@@ -397,15 +402,12 @@ command! FzColors call fz#run({
 "ctrlp-matchfuzzy
 let g:ctrlp_match_func = {'match': 'ctrlp_matchfuzzy#matcher'}
 " dps-hitori
-"g:hitori_debug = false
-"g:hitori_opener = 'tab drop'
-"" 既に起動中の Neovim にパスを送信した後に Neovim を終了するかどうか
-"g:hitori_quit = true
-"" Websocket サーバの port
-"g:hitori_port = 7070
-"" 除外するファイルパターン。デフォルトは [] です。
-"g:hitori_ignore_patterns = { "\\.tmp$", "\\.diff$", "(COMMIT_EDIT|TAG_EDIT|MERGE_|SQUASH_)MSG$" }
-"g:hitori_wsl = v:false
+let g:hitori_debug = v:false
+let g:hitori_quit = v:false
+let g:hitori_port = 7070
+let g:hitori_opener = "vsplit"
+let g:hitori_wsl = v:false
+let g:hitori_ignore_patterns = ["\\.tmp$", "\\.diff$", "(COMMIT_EDIT|TAG_EDIT|MERGE_|SQUASH_)MSG$"]
 " vim透明化
 if !has('gui_running')
   " ターミナル設定で透過させる
