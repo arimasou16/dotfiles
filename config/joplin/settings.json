@@ -1,0 +1,11 @@
+{
+	"$schema": "https://joplinapp.org/schema/settings.json",
+	"locale": "ja_JP",
+	"api.token": "",
+	"markdown.plugin.softbreaks": false,
+	"markdown.plugin.typographer": false,
+	"sync.target": 9,
+	"sync.9.path": "joplin",
+	"sync.9.username": "",
+	"editor": "nvim"
+}

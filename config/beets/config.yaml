@@ -1,0 +1,90 @@
+# Beets configuration --------------------------------------------------------
+# beets version 1.4.7
+# Python version 3.7.0
+# Matthew Rothfuss 10/03/2018
+
+library: ~/.config/beets/musiclibrary.blb
+directory: /mnt/hdd1/My Music/
+
+replace:
+    '[\\/]': '-'
+    '^\.': _
+    '[\x00-\x1f]': _
+    '[<>:"\?\*\|]': _
+    '\.$': ''
+    '\s+$': ''
+    '^\s+': ''
+    '^-': '-'
+
+art_filename: folder
+threaded: yes
+format_item: $artist - $album - $title
+per_disc_numbering: no
+clutter:
+  - "Thumbs.DB"
+  - "Thumbs.db"
+  - "thumbs.db"
+  - ".DS_Store"
+  - "folder.*"
+  - "*.m3u"
+asciify_paths: no
+id3v23: yes
+va_name : 'Various Artists'
+
+import:
+  write: no
+  move: no
+  copy: no
+  resume: ask
+  timid: no
+  log: beetslog.log
+  incremental: yes
+  from_scratch: yes
+  quiet: yes
+  quiet_fallback: yes
+  default_action: skip
+  languages: jp en kr
+  autotag: no
+  ignore:
+    - ".*"
+    - "System Volume Information"
+    - "lost+found"
+  duplicate_action: remove
+    #  set_fields:
+    #    genre: 'No Write Tag'
+    #    artist: 'No Write Tag'
+    #    album: 'No Write Tag'
+
+# Paths ----------------------------------------------------------------------
+paths:
+  default: $albumartist/$album%aunique{}/${track}_${title}
+  singleton: Singletons/$artist - $title
+  comp: Various Artists/$album%aunique{}/${track}_${title}
+  albumtype:soundtrack: Original Soundtrack/$album/${track}_${title}
+
+# Plugins --------------------------------------------------------------------
+
+plugins: info inline duplicates rewrite edit embedart scrub zero play
+
+edit:
+  itemfields: album albumartist artist date disc disctotal genre genres title track tracktotal
+  #itemfields: album albumartist artist date discnumber totaldiscs genre title track totaltracks year
+
+embedart:
+  auto: no
+  ifempty: yes
+  maxwidth: 0
+  quality: 0
+  remove_art_file: no
+
+scrub:
+  auto: yes
+
+zero:
+  fields: comments original_year comp bpm year month day
+    #keep_fields: album albumartist artist date disc disctotal genre genres title track tracktotal year
+  update_database: true
+
+play:
+  #command: /usr/bin/mpv --no-video 
+  command: /usr/bin/mpv --autofit=50%
