@@ -94,7 +94,7 @@ colors
 typeset -U path PATH
 [[ -d ~/.bin ]] && export PATH="${HOME}/.bin:${PATH}"
 [[ -d ~/.local/bin ]] && export PATH="$HOME/.local/bin:$PATH"
-[[ -d ~/.zprofile ]] && source $HOME/.zprofile
+[[ -f ~/.zprofile ]] && source $HOME/.zprofile
 function powerline_precmd() {
     PS1="$($GOPATH/bin/powerline-go -error $? -jobs ${${(%):%j}:-0})"
 

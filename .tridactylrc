@@ -152,12 +152,11 @@ bind gi focusinput -l
 bind gna tabopen https://www.amazon.co.jp/
 bind gnc tabopen https://chat.openai.com/chat
 bind gnd tabopen http://www.dmm.com/
-bind gnf tabopen https://feedly.com/i/latest
 bind gng tabopen https://douga.geo-online.co.jp/
 bind gnh tabopen https://www.hmv.co.jp/
 bind gni tabopen https://www.instagram.com/
 bind gnl tabopen https://www.deepl.com/ja/translator
-bind gnm tabopen https://music.amazon.co.jp/?
+bind gnm tabopen https://ap.wakamonth272.uk/miniflux
 bind gnn tabopen https://www.netflix.com/jp/
 bind gnp tabopen https://getpocket.com/a/
 bind gnq tabopen https://jp.quora.com/
@@ -173,12 +172,11 @@ bind gnz tabopen https://us02web.zoom.us/signin
 bind goa open https://www.amazon.co.jp/
 bind goc open https://chat.openai.com/chat
 bind god open http://www.dmm.com/
-bind gof open https://feedly.com/i/latest
 bind gog open https://douga.geo-online.co.jp/
 bind goh open https://www.hmv.co.jp/
 bind goi open https://www.instagram.com/
 bind gol open https://www.deepl.com/ja/translator
-bind gom open https://music.amazon.co.jp/?
+bind gom open https://ap.wakamonth272.uk/miniflux
 bind gon open https://www.netflix.com/jp/
 bind gop open https://getpocket.com/a/
 bind goq open https://jp.quora.com/
@@ -196,12 +194,11 @@ bind gu urlparent
 bind gwa winopen https://www.amazon.co.jp/
 bind gwc winopen https://chat.openai.com/chat
 bind gwd winopen http://www.dmm.com/
-bind gwf winopen https://feedly.com/i/latest
 bind gwg winopen https://douga.geo-online.co.jp/
 bind gwh winopen https://www.hmv.co.jp/
 bind gwi winopen https://www.instagram.com/
 bind gwl winopen https://www.deepl.com/ja/translator
-bind gwm winopen https://music.amazon.co.jp/?
+bind gwm winopen https://ap.wakamonth272.uk/miniflux
 bind gwn winopen https://www.netflix.com/jp/
 bind gwp winopen https://getpocket.com/a/
 bind gwq winopen https://jp.quora.com/
@@ -387,8 +384,6 @@ alias so source
 autocmd DocStart ^http(s?)://www.reddit.com js tri.excmds.urlmodify("-t", "www", "old")
 autocmd DocStart ^http(s?)://www.amazon.co.uk js tri.excmds.urlmodify("-t", "www", "smile")
 autocmd DocStart ^http(s?)://app.eigosapuri.jp mode ignore
-autocmd DocStart ^http(s?)://blog.feedly.com mode ignore
-autocmd DocStart ^http(s?)://feedly.com mode ignore
 autocmd DocStart ^http(s?)://jamstash.com mode ignore
 autocmd DocStart ^http(s?)://mail.google.com mode ignore
 autocmd DocStart ^http(s?)://manabi-gakushu.benesse.ne.jp mode ignore
