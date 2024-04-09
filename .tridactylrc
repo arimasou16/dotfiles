@@ -397,6 +397,7 @@ autocmd DocStart ^http(s?)://tweetdeck.twitter.com mode ignore
 autocmd DocStart ^http(s?)://unityroom.com mode ignore
 autocmd DocStart ^http(s?)://www.e-typing.ne.jp mode ignore
 autocmd DocStart ^http(s?)://sushida.net/ mode ignore
+autocmd DocStart ^http(s?)://ap.wakamonth272.uk/miniflux mode ignore
 autocmd DocLoad ^https://github.com/tridactyl/tridactyl/issues/new$ issue
 autocmd TriStart .* source_quiet
 

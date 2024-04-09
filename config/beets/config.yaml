@@ -19,6 +19,8 @@ replace:
 art_filename: folder
 threaded: yes
 format_item: $artist - $album - $title
+sort_item: artist+ year+ album+ disc+ track+
+sort_album: albumartist+ year+ album+
 per_disc_numbering: no
 clutter:
   - "Thumbs.DB"
@@ -38,7 +40,7 @@ import:
   resume: ask
   timid: no
   log: beetslog.log
-  incremental: yes
+  incremental: no
   from_scratch: yes
   quiet: yes
   quiet_fallback: yes
@@ -57,18 +59,17 @@ import:
 
 # Paths ----------------------------------------------------------------------
 paths:
-  default: $albumartist/$album%aunique{}/${track}_${title}
+  default: $albumartist/$album%aunique{}/${filetrack}_${title}
   singleton: Singletons/$artist - $title
-  comp: Various Artists/$album%aunique{}/${track}_${title}
-  albumtype:soundtrack: Original Soundtrack/$album/${track}_${title}
+  comp: Various Artists/$album%aunique{}/${filetrack}_${title}
+  albumtype:soundtrack: Original Soundtrack/$album/${filetrack}_${title}
 
 # Plugins --------------------------------------------------------------------
 
-plugins: info inline duplicates rewrite edit embedart scrub zero play
+plugins: info inline duplicates rewrite edit embedart fetchart scrub zero play
 
 edit:
-  itemfields: album albumartist artist date disc disctotal genre genres title track tracktotal
-  #itemfields: album albumartist artist date discnumber totaldiscs genre title track totaltracks year
+  itemfields: album albumartist artist year disc disctotal genre genres title track tracktotal
 
 embedart:
   auto: no
@@ -81,10 +82,19 @@ scrub:
   auto: yes
 
 zero:
-  fields: comments original_year comp bpm year month day
-    #keep_fields: album albumartist artist date disc disctotal genre genres title track tracktotal year
+  fields: comments original_year comp bpm year month day disc disctotal
+  year: [^0$]
+  disc: [^0$]
+  disctotal: [^0$]
   update_database: true
 
 play:
-  #command: /usr/bin/mpv --no-video 
+  #command: /usr/bin/mpv --no-video
   command: /usr/bin/mpv --autofit=50%
+
+fetchart:
+  sources: filesystem coverart itunes amazon albumart
+  cover_format: JPEG
+
+item_fields:
+  filetrack: u'%02i' % (track) if tracktotal > 9 else u'%01i' % (track)
