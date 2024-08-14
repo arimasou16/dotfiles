@@ -35,3 +35,9 @@ if type "docker" > /dev/null 2>&1; then
   export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
   export DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
 fi
+if type "nvm" > /dev/null 2>&1; then
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+fi
+
