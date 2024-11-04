@@ -193,7 +193,7 @@ bind gt tabnext_gt
 bind gu urlparent
 bind gwa winopen https://www.amazon.co.jp/
 bind gwc winopen https://chat.openai.com/chat
-bind gwd winopen http://www.dmm.com/
+bind gwd winopen https://www.dmm.com/
 bind gwg winopen https://douga.geo-online.co.jp/
 bind gwh winopen https://www.hmv.co.jp/
 bind gwi winopen https://www.instagram.com/
