@@ -1,10 +1,6 @@
-[shell]
-program = "/bin/zsh"
-args = ["-l", "-c", "zellij attach --index 0 --create"]
 
 [window]
 opacity = 0.7
-startup_mode = "Maximized"
 decorations = "none"
 
 [font]
@@ -21,6 +17,10 @@ save_to_clipboard = true
 
 [terminal]
 osc52 = "OnlyCopy"
+
+[shell]
+program = "/bin/zsh"
+args = ["-l", "-c", "zellij attach --index 0 --create"]
 
 [keyboard]
 bindings = [
