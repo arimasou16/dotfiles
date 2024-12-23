@@ -92,11 +92,7 @@ set wildmenu
 "[Backspace][Space]←→(ノーマルビジュアル、そして挿入、置換モード)~で行頭、行末から移動を可能とする
 set whichwrap=b,s,[,],<,>
 " 文脈依存な文字幅の問題
-if has('nvim')
-  set ambiwidth=single
-else
-  set ambiwidth=double
-end
+set ambiwidth=double
 "画面最後の行をできる限り表示する。
 set display+=lastline
 " ファイル自動読み込み
@@ -227,7 +223,8 @@ if !has('nvim')
   Plug 'thinca/vim-singleton'
 endif
 "syntax
-Plug 'plasticboy/vim-markdown'
+Plug 'godlygeek/tabular'
+Plug 'preservim/vim-markdown'
 Plug 'PProvost/vim-ps1'
 "colorscheme
 Plug 'tomasr/molokai'
@@ -238,6 +235,7 @@ Plug 'raphamorim/lucario'
 Plug 'gosukiwi/vim-atom-dark'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'jacoborus/tender.vim'
+Plug 'sainnhe/everforest'
 " Initialize plugin system
 call plug#end()
 if has('win32') || has('win64')
@@ -370,7 +368,8 @@ if !has('gui_running')
     "colorscheme atom-dark
     "colorscheme lucario
     "colorscheme material-theme
-    colorscheme tender
+    "colorscheme tender
+    colorscheme everforest
     hi Comment ctermfg=lightgrey
   elseif exists('#lightline') && (has('win32') || has('win64'))
     let g:solarized_termcolors=256
