@@ -253,7 +253,7 @@ if executable('deno')
   cmap <C-j> <Plug>(skkeleton-toggle)
   if has('win32') || has('win64')
     call skkeleton#config({
-      \'globalDictionaries':["~/Appdata/Roaming/SKKFEP/DICTS/SKK-JISYO.L"],
+      \'globalDictionaries':["~/AppData/Roaming/CorvusSKK/SKK-JISYO.L"],
       \'userDictionary':"~/.skkeleton",
     \})
   else
@@ -294,7 +294,7 @@ nnoremap <silent> <Leader>oh :OpenHugo<CR>
 let g:table_mode_corner="|"
 "python
 if has('win32') || has('win64')
-  let g:python3_host_prog = '~/AppData/Local/Programs/Python/Python37/python'
+  let g:python3_host_prog = '~/AppData/Local/Programs/Python/Python313/python'
 else
   let g:python3_host_prog ='/usr/bin/python3'
 endif
