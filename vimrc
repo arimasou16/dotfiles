@@ -103,6 +103,8 @@ set autochdir
 set hidden
 " ヘルプは日本語優先
 set helplang=ja,en
+" 辞書ファイルパス
+set dictionary=~/.vim/dict/completion.dict
 " ファイルと同じディレクトリ移動
 " ファイルタイプが未設定ならデフォルトのファイルタイプを設定する
 function! s:setFileTypeMarkdown()
@@ -125,17 +127,20 @@ augroup my_vimrc
   "挿入モードを抜けるとき、set nopaste を実行する。
   autocmd InsertLeave * set nopaste
   autocmd BufNewFile,BufRead *.sql,*.bat,*.vim,*vimrc,*.js,*.gs setlocal tabstop=2 softtabstop=2 shiftwidth=2
-  "autocmd VimLeavePre,BufWritePost,ExitPreExitPre,BufDelete *.md call s:syncJoplin()
-  if executable('joplin')
-    autocmd FileChangedShell *.md call s:syncJoplin()
-  endif
+  autocmd VimLeavePre,BufWritePost,ExitPre,BufDelete *.md call s:syncJoplin()
 augroup END
 " joplin同期処理
 function! s:syncJoplin()
-  let l:cwd = expand('%:p:h')
-  if (l:cwd == expand('~/.config/joplin/tmp'))
-    execute ':!joplin sync'
-  endif
+  try
+    let l:cwd = expand('%:p:h')
+    if (l:cwd == expand('~/.config/joplin/tmp'))
+      silent execute ':!cp '. expand('%:p') . ' ~/Sync/PocketMark/'
+    endif
+  catch /.*E484:.*/  " File exists error
+    echohl ErrorMsg | echomsg "Error: Backup file already exists." | echohl None
+  catch /.*/
+    echohl ErrorMsg | echomsg "Error: " . v:exception | echohl None
+  endtry
 endfunction
 """"""""""""""""""""""""""""""
 "キーマップ
@@ -197,7 +202,7 @@ Plug 'vim-jp/vimdoc-ja'
 if executable('deno')
   Plug 'vim-denops/denops.vim'
   Plug 'vim-skk/skkeleton'
-  "Plug 'yukimemi/dps-hitori'
+  Plug 'yukimemi/dps-hitori'
 endif
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'junegunn/vim-easy-align'
@@ -236,6 +241,7 @@ Plug 'gosukiwi/vim-atom-dark'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'jacoborus/tender.vim'
 Plug 'sainnhe/everforest'
+Plug 'freeo/vim-kalisi'
 " Initialize plugin system
 call plug#end()
 if has('win32') || has('win64')
@@ -354,14 +360,9 @@ else
 endif
 " markdown-preview
 nnoremap <silent> <Leader>mp :<C-u>MarkdownPreview<CR>
-" lightline.vim
 if !has('gui_running')
-  "set t_Co=256
-  let g:lightline = {
-        \ 'colorscheme': 'solarized',
-        \ }
+  set t_Co=256
   syntax on
-  "set background=dark
   if has('nvim')
     "colorscheme NeoSolarized
     "colorscheme lucius
@@ -369,8 +370,8 @@ if !has('gui_running')
     "colorscheme lucario
     "colorscheme material-theme
     "colorscheme tender
-    colorscheme everforest
-    hi Comment ctermfg=lightgrey
+    "colorscheme everforest
+    colorscheme kalisi
   elseif exists('#lightline') && (has('win32') || has('win64'))
     let g:solarized_termcolors=256
     colorscheme solarized
@@ -392,19 +393,13 @@ let g:ctrlp_custom_ignore = {
   \ 'file': '\v\.(exe|so|dll)$',
   \ 'link': 'some_bad_symbolic_links',
   \ }
-"vim-fz
-command! FzColors call fz#run({
-    \ 'type': 'list',
-    \ 'list': uniq(map(split(globpath(&rtp, "colors/*.vim"), "\n"), "substitute(fnamemodify(v:val, ':t'), '\\..\\{-}$', '', '')")),
-    \ 'accept': {result->execute('colorscheme ' . result['items'][0])},
-    \ })
 "ctrlp-matchfuzzy
 let g:ctrlp_match_func = {'match': 'ctrlp_matchfuzzy#matcher'}
 " dps-hitori
 let g:hitori_debug = v:false
-let g:hitori_quit = v:false
+let g:hitori_quit = v:true
 let g:hitori_port = 7070
-let g:hitori_opener = "vsplit"
+let g:hitori_opener = "tab drop"
 let g:hitori_wsl = v:false
 let g:hitori_ignore_patterns = ["\\.tmp$", "\\.diff$", "(COMMIT_EDIT|TAG_EDIT|MERGE_|SQUASH_)MSG$"]
 " vim透明化
