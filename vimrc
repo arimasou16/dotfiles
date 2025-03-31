@@ -105,6 +105,7 @@ set hidden
 set helplang=ja,en
 " 辞書ファイルパス
 set dictionary=~/.vim/dict/completion.dict
+set complete=.,w,b,u,t,i,k
 " ファイルと同じディレクトリ移動
 " ファイルタイプが未設定ならデフォルトのファイルタイプを設定する
 function! s:setFileTypeMarkdown()
