@@ -203,7 +203,7 @@ Plug 'vim-jp/vimdoc-ja'
 if executable('deno')
   Plug 'vim-denops/denops.vim'
   Plug 'vim-skk/skkeleton'
-  Plug 'yukimemi/dps-hitori'
+  "Plug 'yukimemi/dps-hitori'
 endif
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'junegunn/vim-easy-align'
@@ -397,12 +397,12 @@ let g:ctrlp_custom_ignore = {
 "ctrlp-matchfuzzy
 let g:ctrlp_match_func = {'match': 'ctrlp_matchfuzzy#matcher'}
 " dps-hitori
-let g:hitori_debug = v:false
-let g:hitori_quit = v:true
-let g:hitori_port = 7070
-let g:hitori_opener = "tab drop"
-let g:hitori_wsl = v:false
-let g:hitori_ignore_patterns = ["\\.tmp$", "\\.diff$", "(COMMIT_EDIT|TAG_EDIT|MERGE_|SQUASH_)MSG$"]
+"let g:hitori_debug = v:false
+"let g:hitori_quit = v:true
+"let g:hitori_port = 7070
+"let g:hitori_opener = "tab drop"
+"let g:hitori_wsl = v:false
+"let g:hitori_ignore_patterns = ["\\.tmp$", "\\.diff$", "(COMMIT_EDIT|TAG_EDIT|MERGE_|SQUASH_)MSG$"]
 " vim透明化
 if !has('gui_running')
   " ターミナル設定で透過させる
