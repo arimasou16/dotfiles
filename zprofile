@@ -67,4 +67,4 @@ if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
     source /etc/profile.d/vte.sh
 fi
 # bitwarden
-#[[ -S $HOME/.bitwarden-ssh-agent.sock ]] && export SSH_AUTH_SOCK=$HOME/.bitwarden-ssh-agent.sock
+[[ -S $HOME/.bitwarden-ssh-agent.sock ]] && export SSH_AUTH_SOCK=$HOME/.bitwarden-ssh-agent.sock
