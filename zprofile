@@ -51,6 +51,8 @@ fi
 [[ -f /usr/libexec/ibus-dconf ]] && [[ "$IM" = "ibus" ]] && ibus-daemon --config=/usr/libexec/ibus-dconf -drx
 # Nextcloud/sh
 [[ -d ~/Nextcloud/Public_Ubuntu/sh ]] && export PATH="$HOME/Nextcloud/Public_Ubuntu/sh:${PATH}"
+# Seafile/sh
+[[ -d ~/Seafile/Public_Ubuntu/sh ]] && export PATH="$HOME/Seafile/Public_Ubuntu/sh:${PATH}"
 # docker
 if type "docker" > /dev/null 2>&1; then
   export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
@@ -68,3 +70,4 @@ if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
 fi
 # bitwarden
 [[ -S $HOME/.bitwarden-ssh-agent.sock ]] && export SSH_AUTH_SOCK=$HOME/.bitwarden-ssh-agent.sock
+[[ -S $HOME/.var/app/com.bitwarden.desktop/data/.bitwarden-ssh-agent.sock ]] && export SSH_AUTH_SOCK=$HOME/.var/app/com.bitwarden.desktop/data/.bitwarden-ssh-agent.sock

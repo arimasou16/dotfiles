@@ -206,6 +206,7 @@ if executable('deno')
   "Plug 'yukimemi/dps-hitori'
 endif
 Plug 'dhruvasagar/vim-table-mode'
+Plug 'mattn/vim-maketable'
 Plug 'junegunn/vim-easy-align'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'vim-scripts/BufOnly.vim'
@@ -233,16 +234,18 @@ Plug 'godlygeek/tabular'
 Plug 'preservim/vim-markdown'
 Plug 'PProvost/vim-ps1'
 "colorscheme
-Plug 'tomasr/molokai'
-Plug 'icymind/NeoSolarized'
 Plug 'altercation/vim-colors-solarized'
-Plug 'jdkanani/vim-material-theme'
-Plug 'raphamorim/lucario'
-Plug 'gosukiwi/vim-atom-dark'
-Plug 'jonathanfilip/vim-lucius'
-Plug 'jacoborus/tender.vim'
-Plug 'sainnhe/everforest'
 Plug 'freeo/vim-kalisi'
+Plug 'gosukiwi/vim-atom-dark'
+Plug 'icymind/NeoSolarized'
+Plug 'jacoborus/tender.vim'
+Plug 'jdkanani/vim-material-theme'
+Plug 'jonathanfilip/vim-lucius'
+Plug 'raphamorim/lucario'
+Plug 'sainnhe/everforest'
+Plug 'sjl/badwolf'
+Plug 'tomasr/molokai'
+Plug 'vim-scripts/twilight'
 " Initialize plugin system
 call plug#end()
 if has('win32') || has('win64')
@@ -342,10 +345,10 @@ nnoremap <silent> <Leader>mn  :MemoNew<CR>
 nnoremap <silent> <Leader>ml  :MemoList<CR>
 nnoremap <silent> <Leader>mg  :MemoGrep<CR>
 let g:memolist_memo_suffix = "md"
-if isdirectory('E:\\Nextcloud\\hugo-site\\content\\post')
-  let g:memolist_path = "E:\\Nextcloud\\hugo-site\\content\\post"
-elseif isdirectory(expand('$HOME/Nextcloud/hugo-site/content/post'))
-  let g:memolist_path = "~/Nextcloud/hugo-site/content/post"
+if isdirectory('E:\\Seafile\\hugo-site\\content\\post')
+  let g:memolist_path = "E:\\Seafile\\hugo-site\\content\\post"
+elseif isdirectory(expand('$HOME/Seafile/hugo-site/content/post'))
+  let g:memolist_path = "~/Seafile/hugo-site/content/post"
 endif
 " easy_align
 vmap <Enter> <Plug>(EasyAlign)
@@ -355,9 +358,9 @@ let g:easy_align_delimiters = {
 \ }
 " function
 if has('win32') || has('win64')
-  let g:hugo_directory = 'E:\Nextcloud\hugo-site'
+  let g:hugo_directory = 'E:\Seafile\hugo-site'
 else
-  let g:hugo_directory = '~/Nextcloud/hugo-site'
+  let g:hugo_directory = '~/Seafile/hugo-site'
 endif
 " markdown-preview
 nnoremap <silent> <Leader>mp :<C-u>MarkdownPreview<CR>
@@ -372,7 +375,8 @@ if !has('gui_running')
     "colorscheme material-theme
     "colorscheme tender
     "colorscheme everforest
-    colorscheme kalisi
+    "colorscheme kalisi
+    colorscheme twilight
   elseif exists('#lightline') && (has('win32') || has('win64'))
     let g:solarized_termcolors=256
     colorscheme solarized
