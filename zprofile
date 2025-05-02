@@ -39,12 +39,14 @@ fi
 # yaskkserv2
 if type "yaskkserv2" > /dev/null 2>&1; then
   if [[ "$IM" = "ibus" ]]; then
-    yaskkserv2_make_dictionary --dictionary-filename=$HOME/.config/ibus-skk/dictionary.yaskkserv2 /usr/share/skk/SKK-JISYO.L $HOME/.config/ibus-skk/user.dict
-    yaskkserv2 --google-cache-filename=$HOME/.config/ibus-skk/yaskkserv2.cache $HOME/.config/ibus-skk/dictionary.yaskkserv2
+    #yaskkserv2_make_dictionary --dictionary-filename=$HOME/.config/ibus-skk/dictionary.yaskkserv2 /usr/share/skk/SKK-JISYO.L $HOME/.config/ibus-skk/user.dict
+    #yaskkserv2 --google-cache-filename=$HOME/.config/ibus-skk/yaskkserv2.cache $HOME/.config/ibus-skk/dictionary.yaskkserv2
+    yaskkserv2 --google-cache-filename=$HOME/.config/fcitx5/skk/yaskkserv2.cache
   fi
   if [[ "$IM" = "fcitx5" ]]; then
-    yaskkserv2_make_dictionary --dictionary-filename=$HOME/.config/fcitx5/skk/dictionary.yaskkserv2 /usr/share/skk/SKK-JISYO.L $HOME/.config/fcitx5/skk/user.dict
-    yaskkserv2 --google-cache-filename=$HOME/.config/fcitx5/skk/yaskkserv2.cache $HOME/.config/fcitx5/skk/dictionary.yaskkserv2
+    #yaskkserv2_make_dictionary --dictionary-filename=$HOME/.config/fcitx5/skk/dictionary.yaskkserv2 /usr/share/skk/SKK-JISYO.L $HOME/.config/fcitx5/skk/user.dict
+    #yaskkserv2 --google-cache-filename=$HOME/.config/fcitx5/skk/yaskkserv2.cache $HOME/.config/fcitx5/skk/dictionary.yaskkserv2
+    yaskkserv2 --google-cache-filename=$HOME/.config/fcitx5/skk/yaskkserv2.cache
   fi
 fi
 # ibus これをやると一部のターミナルでハングする
@@ -71,3 +73,5 @@ fi
 # bitwarden
 [[ -S $HOME/.bitwarden-ssh-agent.sock ]] && export SSH_AUTH_SOCK=$HOME/.bitwarden-ssh-agent.sock
 [[ -S $HOME/.var/app/com.bitwarden.desktop/data/.bitwarden-ssh-agent.sock ]] && export SSH_AUTH_SOCK=$HOME/.var/app/com.bitwarden.desktop/data/.bitwarden-ssh-agent.sock
+[[ -S $HOME/snap/bitwarden/current/.bitwarden-ssh-agent.sock ]] && export SSH_AUTH_SOCK=$HOME/snap/bitwarden/current/.bitwarden-ssh-agent.sock
+
