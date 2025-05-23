@@ -293,7 +293,6 @@ if executable('deno')
 endif
 set iminsert=0
 set imsearch=0
-set imdisable
 " openbrowser
 let g:netrw_nogx = 1 " disable netrw's gx mapping.
 nmap gx <Plug>(openbrowser-smart-search)
