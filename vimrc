@@ -135,7 +135,7 @@ function! s:syncJoplin()
   try
     let l:cwd = expand('%:p:h')
     if (l:cwd == expand('~/.config/joplin/tmp'))
-      silent execute ':!cp '. expand('%:p') . ' ~/Sync/PocketMark/'
+      silent execute ':!cp '. expand('%:p') . ' "' . expand('~') . '/Sync/PocketMark/' . getline(1) . '.md"'
     endif
   catch /.*E484:.*/  " File exists error
     echohl ErrorMsg | echomsg "Error: Backup file already exists." | echohl None
