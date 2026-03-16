@@ -25,7 +25,8 @@ set allowautofocus false
 set followpagepatterns.next ^(次へ|進む|もっと見る|もっとみる|次のページ|続き|next|newer|more|(>|→|»|≫|>>)\b)
 set followpagepatterns.prev ^(前へ|戻る|前のページ|prev(ious)?|older|back|(<|←|«|≪|<<|«|<<)\b)
 js tri.browserBg.runtime.getPlatformInfo().then(os=>{const editorcmd = os.os=="linux" ? "kitty nvim" : "gvim -u NONE -c \":e ++enc=utf8\""; tri.config.set("editorcmd", editorcmd)})
-set newtab moz-extension://3a7cfd6e-5b0d-434e-897d-c45faf6d4432/override.html#/
+set newtab moz-extension://e4195508-999a-4294-b0b8-9b532e07ea58/override.html#/
+
 colourscheme dark
 set autocontainmode strict
 set auconcreatecontainer false
@@ -152,7 +153,7 @@ bind gi focusinput -l
 bind gna tabopen https://www.amazon.co.jp/
 bind gnc tabopen https://chat.openai.com/chat
 bind gnd tabopen http://www.dmm.com/
-bind gng tabopen https://douga.geo-online.co.jp/
+bind gng tabopen https://github.com/tammypage/clubsupport/
 bind gnh tabopen https://www.hmv.co.jp/
 bind gni tabopen https://www.instagram.com/
 bind gnl tabopen https://www.deepl.com/ja/translator
@@ -172,7 +173,7 @@ bind gnz tabopen https://us02web.zoom.us/signin
 bind goa open https://www.amazon.co.jp/
 bind goc open https://chat.openai.com/chat
 bind god open http://www.dmm.com/
-bind gog open https://douga.geo-online.co.jp/
+bind gog open https://github.com/tammypage/clubsupport/
 bind goh open https://www.hmv.co.jp/
 bind goi open https://www.instagram.com/
 bind gol open https://www.deepl.com/ja/translator
@@ -194,7 +195,7 @@ bind gu urlparent
 bind gwa winopen https://www.amazon.co.jp/
 bind gwc winopen https://chat.openai.com/chat
 bind gwd winopen https://www.dmm.com/
-bind gwg winopen https://douga.geo-online.co.jp/
+bind gwg winopen https://github.com/tammypage/clubsupport/
 bind gwh winopen https://www.hmv.co.jp/
 bind gwi winopen https://www.instagram.com/
 bind gwl winopen https://www.deepl.com/ja/translator

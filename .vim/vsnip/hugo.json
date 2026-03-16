@@ -6,6 +6,13 @@
     ],
     "description": "リサイズ画像タグ挿入."
   },
+  "Video": {
+    "prefix": ["video"],
+    "body": [
+      "{{< video webm=\"${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}-00001.webm\" width=\"${1}\">}}"
+    ],
+    "description": "動画タグ挿入."
+  },
   "Caption": {
     "prefix": ["cap"],
     "body": [
