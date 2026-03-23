@@ -86,3 +86,13 @@ fi
 [ -S "$HOME/snap/bitwarden/current/.bitwarden-ssh-agent.sock" ] && export SSH_AUTH_SOCK="$HOME/snap/bitwarden/current/.bitwarden-ssh-agent.sock"
 # .geminirc
 [ -f ~/.geminirc ] && . ~/.geminirc
+# Waylandセッションかどうか
+if [ "$XDG_SESSION_TYPE" = "wayland" ] || [ -n "$WAYLAND_DISPLAY" ]; then
+  if [ "$IM" = "ibus" ]; then
+    export XMODIFIERS="@im=ibus"
+  elif [ "$IM" = "fcitx5" ]; then
+    export XMODIFIERS="@im=fcitx"
+  fi
+  export GTK_IM_MODULE=""
+  export QT_IM_MODULE=""
+fi
