@@ -249,9 +249,9 @@ Plug 'vim-scripts/twilight'
 " Initialize plugin system
 call plug#end()
 if has('win32') || has('win64')
-  set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+  set wildignore+=*\\tmp\\*,*.swp,*.zip,*.xe 
 else
-  set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+  set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 endif
 if executable('rg')
   set grepprg=rg\ --vimgrep\ --no-heading
@@ -325,7 +325,6 @@ smap <expr> <Tab>   vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)'      : '<Tab>
 imap <expr> <S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
 smap <expr> <S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
 " Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
-" See https://github.com/hrsh7th/vim-vsnip/pull/50
 nmap s      <Plug>(vsnip-select-text)
 xmap s      <Plug>(vsnip-select-text)
 nmap S      <Plug>(vsnip-cut-text)
@@ -350,7 +349,9 @@ elseif isdirectory(expand('$HOME/Seafile/hugo-site/content/post'))
   let g:memolist_path = "~/Seafile/hugo-site/content/post"
 endif
 " easy_align
-vmap <Enter> <Plug>(EasyAlign)
+if !exists('g:vscode')
+  vmap <Enter> <Plug>(EasyAlign)
+endif
 let g:easy_align_delimiters = {
 \ "-": { 'filter': 'v/^\s*--/', 'pattern': '[-]\{2,\}', 'left_margin': 1, 'right_margin': 1, 'ignore_groups': ['String']},
 \ '\': { 'pattern': '\s\{2,\}' },
@@ -367,14 +368,6 @@ if !has('gui_running')
   set t_Co=256
   syntax on
   if has('nvim')
-    "colorscheme NeoSolarized
-    "colorscheme lucius
-    "colorscheme atom-dark
-    "colorscheme lucario
-    "colorscheme material-theme
-    "colorscheme tender
-    "colorscheme everforest
-    "colorscheme kalisi
     colorscheme twilight
   elseif exists('#lightline') && (has('win32') || has('win64'))
     let g:solarized_termcolors=256
@@ -399,13 +392,6 @@ let g:ctrlp_custom_ignore = {
   \ }
 "ctrlp-matchfuzzy
 let g:ctrlp_match_func = {'match': 'ctrlp_matchfuzzy#matcher'}
-" dps-hitori
-"let g:hitori_debug = v:false
-"let g:hitori_quit = v:true
-"let g:hitori_port = 7070
-"let g:hitori_opener = "tab drop"
-"let g:hitori_wsl = v:false
-"let g:hitori_ignore_patterns = ["\\.tmp$", "\\.diff$", "(COMMIT_EDIT|TAG_EDIT|MERGE_|SQUASH_)MSG$"]
 " vim透明化
 if !has('gui_running')
   " ターミナル設定で透過させる
