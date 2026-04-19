@@ -1,3 +1,5 @@
+## 権限情報
+umask 0022
 # PATH環境変数設定
 [ -d ~/.bin ] && export PATH="${HOME}/.bin:${PATH}"
 [ -d ~/.local/bin ] && export PATH="$HOME/.local/bin:$PATH"
