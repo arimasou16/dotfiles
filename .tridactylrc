@@ -151,7 +151,7 @@ bind gg scrollto 0
 bind gh home
 bind gi focusinput -l
 bind gna tabopen https://www.amazon.co.jp/
-bind gnc tabopen https://chat.openai.com/chat
+bind gnc tabopen https://claude.ai/new
 bind gnd tabopen http://www.dmm.com/
 bind gng tabopen https://github.com/tammypage/clubsupport/
 bind gnh tabopen https://www.hmv.co.jp/
@@ -171,7 +171,7 @@ bind gnx tabopen https://app.plex.tv/desktop
 bind gny tabopen https://www.youtube.com/?gl=JP
 bind gnz tabopen https://us02web.zoom.us/signin
 bind goa open https://www.amazon.co.jp/
-bind goc open https://chat.openai.com/chat
+bind goc open https://claude.ai/new
 bind god open http://www.dmm.com/
 bind gog open https://github.com/tammypage/clubsupport/
 bind goh open https://www.hmv.co.jp/
@@ -193,7 +193,7 @@ bind gr reader
 bind gt tabnext_gt
 bind gu urlparent
 bind gwa winopen https://www.amazon.co.jp/
-bind gwc winopen https://chat.openai.com/chat
+bind gwc winopen https://claude.ai/new
 bind gwd winopen https://www.dmm.com/
 bind gwg winopen https://github.com/tammypage/clubsupport/
 bind gwh winopen https://www.hmv.co.jp/
