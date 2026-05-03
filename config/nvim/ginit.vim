@@ -1,0 +1,1 @@
+/home/arimasou16/git/dotfiles/gvimrc
