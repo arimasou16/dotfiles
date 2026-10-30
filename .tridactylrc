@@ -231,6 +231,7 @@ bind ym clipboard yankmd
 bind yo clipboard yankorg
 bind yp composite js document.getElementById("clone-help-step-1").textContent.replace("git checkout -b", "git checkout -B").replace("git pull ", "git fetch ") + "git reset --hard " + document.getElementById("clone-help-step-1").textContent.split(" ")[3].replace("-","/") | yank
 bind ys clipboard yankshort
+bind yS composite js document.documentElement.outerHTML | yank
 bind yt clipboard yanktitle
 bind yy clipboard yank
 bind zI zoom 3
@@ -385,8 +386,7 @@ alias so source
 autocmd DocStart ^http(s?)://www.reddit.com js tri.excmds.urlmodify("-t", "www", "old")
 autocmd DocStart ^http(s?)://www.amazon.co.uk js tri.excmds.urlmodify("-t", "www", "smile")
 autocmd DocStart ^http(s?)://app.eigosapuri.jp mode ignore
-autocmd DocStart ^http(s?)://jamstash.com mode ignore
-autocmd DocStart ^http(s?)://mail.google.com mode ignore
+autocmd DocStart ^http(s?)://([^/]+\.)*google\.com/.* mode ignore
 autocmd DocStart ^http(s?)://manabi-gakushu.benesse.ne.jp mode ignore
 autocmd DocStart ^http(s?)://oyayubi-typing.solaniwa.net mode ignore
 autocmd DocStart ^http(s?)://tweetdeck.twitter.com mode ignore

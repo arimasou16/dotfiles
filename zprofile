@@ -86,8 +86,6 @@ fi
 [ -S "$HOME/.bitwarden-ssh-agent.sock" ] && export SSH_AUTH_SOCK="$HOME/.bitwarden-ssh-agent.sock"
 [ -S "$HOME/.var/app/com.bitwarden.desktop/data/.bitwarden-ssh-agent.sock" ] && export SSH_AUTH_SOCK="$HOME/.var/app/com.bitwarden.desktop/data/.bitwarden-ssh-agent.sock"
 [ -S "$HOME/snap/bitwarden/current/.bitwarden-ssh-agent.sock" ] && export SSH_AUTH_SOCK="$HOME/snap/bitwarden/current/.bitwarden-ssh-agent.sock"
-# .geminirc
-[ -f ~/.geminirc ] && . ~/.geminirc
 # Waylandセッションかどうか
 if [ "$XDG_SESSION_TYPE" = "wayland" ] || [ -n "$WAYLAND_DISPLAY" ]; then
   if [ "$IM" = "ibus" ]; then
@@ -98,3 +96,7 @@ if [ "$XDG_SESSION_TYPE" = "wayland" ] || [ -n "$WAYLAND_DISPLAY" ]; then
   export GTK_IM_MODULE=""
   export QT_IM_MODULE=""
 fi
+if command -v "spf" > /dev/null 2>&1; then
+  alias spf='LANG=en_US.UTF-8 spf'
+fi
+export YDOTOOL_SOCKET=/tmp/.ydotool_socket

@@ -100,3 +100,47 @@ export PROMPT="[%n@%m:%~]$ "
 bindkey -e
 export TERM=xterm
 
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+. "$HOME/.atuin/bin/env"
+eval "$(atuin init zsh)"
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/arimasou16/.local/bin:$PATH"
+autoload bashcompinit
+bashcompinit
+source "/home/arimasou16/.local/share/bash-completion/completions/appman"
+
+# 鍵やシークレットを安全に扱うためのシェル関数
+run-with-secret() {
+    if [ $# -lt 1 ]; then
+        echo "Usage: run-with-secret <file.gpg> [optional: command]" >&2
+        return 1
+    fi
+    
+    local secret_file="$1"
+    shift
+    
+    if [ ! -f "$secret_file" ]; then
+        echo "Error: File not found -> $secret_file" >&2
+        return 1
+    fi
+
+    if [ $# -eq 0 ]; then
+        # 【パターンA】後ろにコマンドがない場合：
+        # 現在のシェル（一時的なサブシェル）に環境変数を読み込んで、インタラクティブに作業
+        echo "🔓 一時的なセッションを開始します（'exit' で終了するとシークレットは消滅します）"
+        bash --rcfile <(cat ~/.bashrc; echo "source <(gpg -d '$secret_file' 2>/dev/null)")
+    else
+        # 【パターンB】後ろにコマンドがある場合：
+        # そのコマンド実行時だけオンメモリで環境変数を適用（従来通り）
+        source <(gpg -d "$secret_file" 2>/dev/null) && "$@"
+    fi
+}
+
+# clubsupportのdevcontainerで rootless Docker用に remoteUser=root を使うため
+export DEVCONTAINER_REMOTE_USER=root
+source ~/.geminirc
