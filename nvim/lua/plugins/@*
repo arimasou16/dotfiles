@@ -1,0 +1,5 @@
+
+
+Failed to load `plugins.lazy`:
+/home/arimasou16/.config/nvim/lua/plugins/lazy.lua:95: function arguments expected near '='
+24 lines yanked
